@@ -1,0 +1,596 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="racepoint_component_profile.xsd" manufacturer="Plex" model="Home Theater" device_class="Media_server" minimum_component_engine_version="0" rpm_xml_version="$Revision: 2.2.6$">
+    <notes>
+        You are required to edit the guisettings.xml file located ~/Library/Application Support/Plex Home Theater/userdata
+        Locate "esallinterfaces" and change this setting to "true"
+        Restart Plex Home Theater
+    </notes>
+    <control_interfaces preferred="ip">
+        <ip port="9090" response_time_length_ms="500" name_on_component="ETHERNET">
+            <response_codes>
+                <rspcode message_name="ok" type="character" status="success">{"id":"1","jsonrpc":"2.0","result":"OK"}</rspcode>
+                <rspcode message_name="error" type="character" status="ignore">{"error":{"code":-32100,"message":"Failed to execute method."},"id":"1","jsonrpc":"2.0"}</rspcode>
+            </response_codes>
+        </ip>         
+    </control_interfaces>
+    <media_interfaces>
+        <output name_on_component="HDMI">
+            <combined_media>
+                <audio_media type="hdmi_audio"/>
+                <video_media type="hdmi"/>
+            </combined_media>
+            <resource resource_type="AV_DIGITALVIDEO_SOURCE"/>
+            <resource resource_type="AV_DIGITALAUDIO_SOURCE"/>
+            <resource resource_type="AV_EXTERNALMEDIASERVER_SOURCE"/>
+        </output>
+        <output name_on_component="Audio Out">
+            <audio_media type="analog_spdif_combination_minijack"/>
+            <resource resource_type="AV_DIGITALAUDIO_SOURCE"/>
+            <resource resource_type="AV_EXTERNALMEDIASERVER_SOURCE"/>
+            <resource resource_type="AV_VOLUMECONTROL_FUNCTION"/>
+        </output>
+        <data name_on_component="Ethernet">
+            <combined_media>
+                <data_media type="ethernet"/>
+                <control port="9090"/>
+            </combined_media>
+        </data>        
+    </media_interfaces>
+    <state_variable_list>
+        <state_variable name="Mute_current_mute_setting" state_center_binding="CurrentMuteStatus" state_center_type="string" owning_logical_component="Plex">OFF</state_variable>
+        <volume_state_variable name="Volume_current_volume" min_value="0" max_value="100" owning_logical_component="Plex" granularity="1.0" state_center_type="string" state_center_binding="CurrentVolume">0</volume_state_variable>
+        <state_variable name="getPosistion" state_center_binding="getPosistion" state_center_type="boolean" owning_logical_component="Plex">false</state_variable>
+        <state_variable name="progressPercentage" state_center_binding="progressPercentage" state_center_type="integer" owning_logical_component="Plex">0</state_variable>
+        <state_variable name="progressHours" state_center_binding="progressHours" state_center_type="integer" owning_logical_component="Plex">0</state_variable>
+        <state_variable name="progressMilliseconds" state_center_binding="progressMilliseconds" state_center_type="integer" owning_logical_component="Plex">0</state_variable>
+        <state_variable name="progressMinutes" state_center_binding="progressMinutes" state_center_type="integer" owning_logical_component="Plex">0</state_variable>
+        <state_variable name="progressSeconds" state_center_binding="progressSeconds" state_center_type="integer" owning_logical_component="Plex">0</state_variable>
+        <state_variable name="currentEpisodeNumber" state_center_binding="currentEpisodeNumber" state_center_type="string" owning_logical_component="Plex"></state_variable>
+        <state_variable name="currentSeasonNumber" state_center_binding="currentSeasonNumber" state_center_type="string" owning_logical_component="Plex"></state_variable>
+        <state_variable name="currentSeasonName" state_center_binding="currentSeasonName" state_center_type="string" owning_logical_component="Plex"></state_variable>
+        <state_variable name="currentEpisodeName" state_center_binding="currentEpisodeName" state_center_type="string" owning_logical_component="Plex"></state_variable>
+        <state_variable name="currentMovieName" state_center_binding="currentMovieName" state_center_type="string" owning_logical_component="Plex"></state_variable>
+        <state_variable name="currentMovieYear" state_center_binding="currentMovieYear" state_center_type="string" owning_logical_component="Plex"></state_variable>
+        <state_variable name="isMovie" state_center_binding="isMovie" state_center_type="boolean" owning_logical_component="Plex">false</state_variable>
+        <state_variable name="isTVShow" state_center_binding="isTVShow" state_center_type="boolean" owning_logical_component="Plex">true</state_variable>
+    </state_variable_list>
+    <logical_component logical_component_name="Plex">
+        <implementation>
+            <output name_on_component="HDMI"/>
+            <output name_on_component="Audio Out" />
+        </implementation>
+        <status_messages>
+            <status_message name="Volume">
+                <constant type="character">{"jsonrpc":"2.0","method":"Application.OnVolumeChanged","params":{"data":{"muted":</constant>
+                <data type="character" terminator_type="character" terminator=",">
+                    <data_map match_required="yes">
+                        <map key="true">
+                            <update state="Mute_current_mute_setting" type="string">ON</update>
+                        </map>
+                        <map key="false">
+                            <update state="Mute_current_mute_setting" type="string">OFF</update>
+                        </map>
+                    </data_map>
+                </data>
+                <constant type="character">"volume":</constant>
+                <data type="character" terminator_type="character" terminator="}">
+                    <update state="Volume_current_volume" type="string"/>
+                </data>
+                <data type="character" terminator_type="end_of_data"/>
+                <run_elements>
+                    <actions>
+                        <action name="StartPosCheck">
+                            <update_state_variable name="getPosistion" update_type="set" update_source="constant">true</update_state_variable>
+                        </action>
+                    </actions>
+                </run_elements>
+            </status_message>
+            <status_message name="Playing TV Show">
+                <constant type="character">{"jsonrpc":"2.0","method":"Player.OnPlay","params":{"data":{"item":{"episode":</constant>
+                <data type="character" terminator_type="character" terminator=",">
+                    <update state="currentEpisodeNumber" type="string"/>
+                </data>
+                <constant type="character">"season":</constant>
+                <data type="character" terminator_type="character" terminator=",">
+                    <update state="currentSeasonNumber" type="string"/>
+                </data>
+                <constant type="character">"title":"</constant>
+                <data type="character" terminator_type="character" terminator="&quot;">
+                    <update state="currentEpisodeName" type="string"/>
+                </data>
+                <data type="character" terminator_type="end_of_data"/>
+                <run_elements>
+                    <actions>
+                        <action name="StartPosCheck">
+                            <update_state_variable name="getPosistion" update_type="set" update_source="constant">true</update_state_variable>
+                            <update_state_variable name="isTVShow" update_type="set" update_source="constant">true</update_state_variable>
+                            <update_state_variable name="isMovie" update_type="set" update_source="constant">false</update_state_variable>
+                        </action>
+                    </actions>
+                </run_elements>
+            </status_message>
+            <status_message name="Playing TV Show2">
+                <constant type="character">{"jsonrpc":"2.0","method":"Player.OnPlay","params":{"data":{"item":{"episode":</constant>
+                <data type="character" terminator_type="character" terminator=",">
+                    <update state="currentEpisodeNumber" type="string"/>
+                </data>
+                <constant type="character">"season":</constant>
+                <data type="character" terminator_type="character" terminator=",">
+                    <update state="currentSeasonNumber" type="string"/>
+                </data>
+                <constant type="character">"showtitle":"</constant>
+                <data type="character" terminator_type="character" terminator="&quot;">
+                    <update state="currentSeasonName" type="string"/>
+                </data>
+                <constant type="character">,"title":"</constant>
+                <data type="character" terminator_type="character" terminator="&quot;">
+                    <update state="currentEpisodeName" type="string"/>
+                </data>
+                <data type="character" terminator_type="end_of_data"/>
+                <run_elements>
+                    <actions>
+                        <action name="StartPosCheck">
+                            <update_state_variable name="getPosistion" update_type="set" update_source="constant">true</update_state_variable>
+                            <update_state_variable name="isTVShow" update_type="set" update_source="constant">true</update_state_variable>
+                            <update_state_variable name="isMovie" update_type="set" update_source="constant">false</update_state_variable>
+                        </action>
+                    </actions>
+                </run_elements>
+            </status_message>
+            <status_message name="Playing Movie">
+                <constant type="character">{"jsonrpc":"2.0","method":"Player.OnPlay","params":{"data":{"item":{"title":"</constant>
+                <data type="character" terminator_type="character" terminator="&quot;">
+                    <update state="currentMovieName" type="string"/>
+                </data>
+                <constant type="character">,"type":"movie","year":</constant>
+                <data type="character" terminator_type="character" terminator="}">
+                    <update state="currentMovieYear" type="string"/>
+                </data>
+                <data type="character" terminator_type="end_of_data"/>
+                <run_elements>
+                    <actions>
+                        <action name="StartPosCheck">
+                            <update_state_variable name="getPosistion" update_type="set" update_source="constant">true</update_state_variable>
+                            <update_state_variable name="isTVShow" update_type="set" update_source="constant">false</update_state_variable>
+                            <update_state_variable name="isMovie" update_type="set" update_source="constant">true</update_state_variable>
+                        </action>
+                    </actions>
+                </run_elements>
+            </status_message>
+            <status_message name="Playing Stoped">
+                <constant type="character">{"jsonrpc":"2.0","method":"Player.OnStop"</constant>
+                <data type="character" terminator_type="end_of_data"/>
+                <run_elements>
+                    <actions>
+                        <action name="StopPosCheck">
+                            <update_state_variable name="getPosistion" update_type="set" update_source="constant">false</update_state_variable>
+                            <update_state_variable name="progressPercentage" update_type="set" update_source="constant">0</update_state_variable>
+                            <update_state_variable name="progressHours" update_type="set" update_source="constant">0</update_state_variable>
+                            <update_state_variable name="progressMilliseconds" update_type="set" update_source="constant">0</update_state_variable>
+                            <update_state_variable name="progressMinutes" update_type="set" update_source="constant">0</update_state_variable>
+                            <update_state_variable name="progressSeconds" update_type="set" update_source="constant">0</update_state_variable>
+                            <update_state_variable name="currentEpisodeName" update_type="set" update_source="constant"> </update_state_variable>
+                            <update_state_variable name="currentEpisodeNumber" update_type="set" update_source="constant"> </update_state_variable>
+                            <update_state_variable name="currentSeasonNumber" update_type="set" update_source="constant"> </update_state_variable>
+                            <update_state_variable name="currentSeasonName" update_type="set" update_source="constant"> </update_state_variable>
+                            <update_state_variable name="currentMovieName" update_type="set" update_source="constant"> </update_state_variable>
+                            <update_state_variable name="currentMovieYear" update_type="set" update_source="constant"> </update_state_variable>
+                        </action>
+                    </actions>
+                </run_elements>
+            </status_message>
+            <status_message name="Playing Paused">
+                <constant type="character">{"jsonrpc":"2.0","method":"Player.OnPause"</constant>
+                <data type="character" terminator_type="end_of_data"/>
+                <run_elements>
+                    <actions>
+                        <action name="StartPosCheck">
+                            <update_state_variable name="getPosistion" update_type="set" update_source="constant">false</update_state_variable>
+                        </action>
+                    </actions>
+                </run_elements>
+            </status_message>
+            <status_message name="GetPlayingPosistion">
+                <constant type="character">{"id":"1","jsonrpc":"2.0","result":{"percentage":</constant>
+                <data type="character" terminator_type="character" terminator=",">
+                    <update state="progressPercentage" type="integer"/>
+                </data>
+                <constant type="character">"time":{"hours":</constant>
+                <data type="character" terminator_type="character" terminator=",">
+                    <update state="progressHours" type="integer"/>
+                </data>
+                <constant type="character">"milliseconds":</constant>
+                <data type="character" terminator_type="character" terminator=",">
+                    <update state="progressMilliseconds" type="integer"/>
+                </data>
+                <constant type="character">"minutes":</constant>
+                <data type="character" terminator_type="character" terminator=",">
+                    <update state="progressMinutes" type="integer"/>
+                </data>
+                <constant type="character">"seconds":</constant>
+                <data type="character" terminator_type="character" terminator=",">
+                    <update state="progressSeconds" type="integer"/>
+                </data>
+                <data type="character" terminator_type="end_of_data"/>
+            </status_message>
+        </status_messages>
+        <resource_component_actions resource_type="AV_VOLUMECONTROL_FUNCTION">
+            <action name="IncreaseVolume">
+                <update_volume_variables name="Volume_current_volume" update_type="increment" update_source="constant">1</update_volume_variables>
+                <command_interface interface="ip">
+                    <command response_required="no">
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Application.SetVolume","params":{"volume":"increment"},"id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>       
+            </action>
+            <action name="DecreaseVolume">
+                <update_volume_variables name="Volume_current_volume" update_type="decrement" update_source="constant">1</update_volume_variables>
+                <command_interface interface="ip">
+                    <command response_required="no">
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Application.SetVolume","params":{"volume":"decrement"},"id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            <action name="SetVolume">
+                <action_argument name="VolumeValue" note="Select the Volume Level (0 - 50)"/>
+                <update_volume_variables name="Volume_current_volume" update_type="set" update_source="action_argument">VolumeValue</update_volume_variables>
+                <command_interface interface="ip">
+                    <command response_required="yes" partial_response="yes">
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Application.SetVolume","params":{"volume":</command_string>
+                        <parameter_list>
+                            <volume_parameter volume_state_variable="Volume_current_volume" parameter_total_width="3" parameter_data_type="character" action_argument="VolumeValue"/>
+                            <parameter parameter_data_type="character">},"id":"1"}</parameter>
+                        </parameter_list>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            <action name="MuteOff">
+                <update_state_variable name="Mute_current_mute_setting" update_type="set" update_source="constant">OFF</update_state_variable>
+                <command_interface interface="ip">
+                    <command response_required="yes" partial_response="yes">
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Application.SetMute","params":{"mute":false},"id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            <action name="MuteOn">
+                <update_state_variable name="Mute_current_mute_setting" update_type="set" update_source="constant">ON</update_state_variable>
+                <command_interface interface="ip">
+                    <command response_required="yes" partial_response="yes">
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Application.SetMute","params":{"mute":true},"id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+        </resource_component_actions>
+        <resource_component_actions resource_type="AV_EXTERNALMEDIASERVER_SOURCE">
+            <action name="Select">
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Input.Select","id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            <action name="OSDCursorUp">
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Input.Up","id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            <action name="OSDCursorDown">
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Input.Down","id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            <action name="OSDCursorLeft">
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Input.Left","id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            <action name="OSDCursorRight">
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Input.Right","id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            <action name="Exit">
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Input.Back","id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            <action name="Play">
+                <update_state_variable name="getPosistion" update_type="set" update_source="constant">true</update_state_variable>
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Player.PlayPause","params":{"playerid":1,"play":"toggle"},"id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            <action name="Pause">
+                <update_state_variable name="getPosistion" update_type="set" update_source="constant">false</update_state_variable>
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Player.PlayPause","params":{"playerid":1,"play":"toggle"},"id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            <action name="Stop">
+                <update_state_variable name="getPosistion" update_type="set" update_source="constant">false</update_state_variable>
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Player.Stop","params":{"playerid":1},"id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            <action name="ScanUp">
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Player.SetSpeed","params":{"playerid":1,"speed":"increment"},"id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            <action name="ScanDown">
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Player.SetSpeed","params":{"playerid":1,"speed":"decrement"},"id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            <action name="StepUp">
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Player.Seek","params":{"playerid":1,"value":"bigforward"},"id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            <action name="StepDown">
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Player.Seek","params":{"playerid":1,"value":"bigbackward"},"id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            <action name="SkipUp">
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":Player.Goto","params":{"playerid":1,"to":"next"},"id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            <action name="SkipDown">
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":Player.Goto","params":{"playerid":1,"to":"previous"},"id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            <action name="Repeat">
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Player.SetRepeat","params":{"playerid":1,"repeat":"cycle"},"id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            <action name="Info">
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Input.Info","id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            <action name="Setup">
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Input.ShowOSD","id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            <action name="Menu">
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Input.ContextMenu","id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Input.ShowOSD","id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            <action name="Subtitle">
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Player.SetSubtitle","params":{"playerid":1,"subtitle":"next","enable":true},"id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            <action name="Zoom">
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Input.ExecuteAction","params":{"action":"zoomin"},"id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            <action name="PageUp">
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Input.ExecuteAction","params":{"action":"pageup"},"id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            <action name="PageDown">
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Input.ExecuteAction","params":{"action":"pagedown"},"id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            <action name="Home">
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Input.Home","id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            <action name="NumberZero">
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Input.ExecuteAction","params":{"action":"number0"},"id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            <action name="NumberOne">
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Input.ExecuteAction","params":{"action":"number1"},"id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            <action name="NumberTwo">
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Input.ExecuteAction","params":{"action":"number2"},"id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            <action name="NumberThree">
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Input.ExecuteAction","params":{"action":"number3"},"id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            <action name="NumberFour">
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Input.ExecuteAction","params":{"action":"number4"},"id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            <action name="NumberFive">
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Input.ExecuteAction","params":{"action":"number5"},"id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            <action name="NumberSix">
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Input.ExecuteAction","params":{"action":"number6"},"id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            <action name="NumberSeven">
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Input.ExecuteAction","params":{"action":"number7"},"id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            <action name="NumberEight">
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Input.ExecuteAction","params":{"action":"number8"},"id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            <action name="NumberNine">
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Input.ExecuteAction","params":{"action":"number9"},"id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            <action name="NumberEnter">
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Input.ExecuteAction","params":{"action":"enter"},"id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+        </resource_component_actions>
+        <custom_component_actions>
+            <action name="SubtitleOff">
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Player.SetSubtitle","params":{"playerid":1,"subtitle":"off"},"id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            <action name="DisplayMessage">
+                <action_argument name="Title"/>
+                <action_argument name="Message"/>
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"GUI.ShowNotification","params":{"title":"</command_string>
+                        <parameter_list>
+                            <parameter parameter_data_type="character" action_argument="Title"/>
+                            <parameter parameter_data_type="character">","message":"</parameter>
+                            <parameter parameter_data_type="character" action_argument="Message"/>
+                            <parameter parameter_data_type="character">"},"id":"1"}</parameter>
+                        </parameter_list>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            <action name="GetPosistion">
+                <execute_on_state_variable_condition name="getPosistion" test_condition="equal">true</execute_on_state_variable_condition>
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Player.GetProperties","params":{"playerid":1,"properties":["percentage","time"]},"id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+                <execute_on_schedule period_ms="2000"/>
+            </action>
+        </custom_component_actions>
+    </logical_component>
+</component>
