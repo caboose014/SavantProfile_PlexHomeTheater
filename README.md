@@ -9,4 +9,3 @@ You need to enable TCP control of Plex Home Theater by modifying the GUIsettings
 Locate "esallinterfaces" and change this setting to "true"
 
 Restart Plex Home Theater
-

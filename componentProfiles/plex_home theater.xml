@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="racepoint_component_profile.xsd" manufacturer="Plex" model="Home Theater" device_class="Media_server" minimum_component_engine_version="0" rpm_xml_version="$Revision: 2.2.6$">
+    xsi:noNamespaceSchemaLocation="racepoint_component_profile.xsd" manufacturer="Plex" model="Home Theater" device_class="Media_server" minimum_component_engine_version="0" rpm_xml_version="$Revision: 2.2.9$">
     <notes>
         You are required to edit the guisettings.xml file located ~/Library/Application Support/Plex Home Theater/userdata
         Locate "esallinterfaces" and change this setting to "true"
         Restart Plex Home Theater
     </notes>
+    <resource_ui_mappings>
+        <resource_map resource_type="AV_EXTERNALMEDIASERVER_SOURCE" ui_map="plex"/>
+        <resource_map resource_type="AV_EXTERNALMEDIASERVER_SOURCE" ui_map="xbmc"/>
+    </resource_ui_mappings>
     <control_interfaces preferred="ip">
         <ip port="9090" response_time_length_ms="500" name_on_component="ETHERNET">
             <response_codes>
                 <rspcode message_name="ok" type="character" status="success">{"id":"1","jsonrpc":"2.0","result":"OK"}</rspcode>
-                <rspcode message_name="error" type="character" status="ignore">{"error":{"code":-32100,"message":"Failed to execute method."},"id":"1","jsonrpc":"2.0"}</rspcode>
             </response_codes>
-        </ip>         
+        </ip>
     </control_interfaces>
     <media_interfaces>
         <output name_on_component="HDMI">
@@ -214,6 +217,18 @@
                 </data>
                 <data type="character" terminator_type="end_of_data"/>
             </status_message>
+            <status_message name="Playing Has stopped and we missed the queue">
+                <constant type="character">{"error":{"code":-32100,"message":"Failed to execute method."}</constant>
+                <run_elements>
+                    <actions>
+                        <action name="Stop Query">
+                            <execute_on_state_variable_condition name="getPosistion" test_condition="equal">true</execute_on_state_variable_condition>
+                            <update_state_variable name="getPosistion" update_type="set" update_source="constant">false</update_state_variable>
+                        </action>
+                    </actions>
+                </run_elements>
+            </status_message>
+            
         </status_messages>
         <resource_component_actions resource_type="AV_VOLUMECONTROL_FUNCTION">
             <action name="IncreaseVolume">
@@ -467,6 +482,30 @@
                     </command>
                 </command_interface>
             </action>
+            <action name="Audio">
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Player.SetAudioStream","params":{"playerid":1,"stream":"next"},"id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            <action name="Repeat">
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Player.SetRepeat","params":{"playerid":1,"repeat":"cycle"},"id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            <action name="Random">
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Player.SetShuffle","params":{"playerid":1,"shuffle":"toggle"},"id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
             <action name="NumberZero">
                 <command_interface interface="ip">
                     <command>
@@ -551,6 +590,33 @@
                 <command_interface interface="ip">
                     <command>
                         <command_string type="character">{"jsonrpc":"2.0","method":"Input.ExecuteAction","params":{"action":"enter"},"id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            <!--     Substituting for Subtitles Off       -->
+            <action name="Red">
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Player.SetSubtitle","params":{"playerid":1,"subtitle":"off"},"id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            <!--     Substituting for Zoom Normal       -->
+            <action name="Blue">
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Player.Zoom","params":{"playerid":1,"zoom":1},"id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            <!--     Substituting for Toggle Watched       -->
+            <action name="Green">
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Input.ExecuteAction","params":{"action":"togglewatched"},"id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
                 </command_interface>
