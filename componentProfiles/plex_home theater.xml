@@ -53,9 +53,8 @@
         <state_variable name="currentSeasonNumber" state_center_binding="currentSeasonNumber" state_center_type="string" owning_logical_component="Plex"></state_variable>
         <state_variable name="currentSeasonName" state_center_binding="currentSeasonName" state_center_type="string" owning_logical_component="Plex"></state_variable>
         <state_variable name="currentEpisodeName" state_center_binding="currentEpisodeName" state_center_type="string" owning_logical_component="Plex"></state_variable>
-        <state_variable name="currentMovieName" state_center_binding="currentMovieName" state_center_type="string" owning_logical_component="Plex"></state_variable>
-        <state_variable name="currentMovieYear" state_center_binding="currentMovieYear" state_center_type="string" owning_logical_component="Plex"></state_variable>
-        <state_variable name="isMovie" state_center_binding="isMovie" state_center_type="boolean" owning_logical_component="Plex">false</state_variable>
+        <!--<state_variable name="currentMovieName" state_center_binding="currentMovieName" state_center_type="string" owning_logical_component="Plex"></state_variable>
+        <state_variable name="currentMovieYear" state_center_binding="currentMovieYear" state_center_type="string" owning_logical_component="Plex"></state_variable>-->
         <state_variable name="isTVShow" state_center_binding="isTVShow" state_center_type="boolean" owning_logical_component="Plex">true</state_variable>
     </state_variable_list>
     <logical_component logical_component_name="Plex">
@@ -136,7 +135,6 @@
                         <action name="StartPosCheck">
                             <update_state_variable name="getPosistion" update_type="set" update_source="constant">true</update_state_variable>
                             <update_state_variable name="isTVShow" update_type="set" update_source="constant">true</update_state_variable>
-                            <update_state_variable name="isMovie" update_type="set" update_source="constant">false</update_state_variable>
                         </action>
                     </actions>
                 </run_elements>
@@ -144,7 +142,7 @@
             <status_message name="Playing Movie">
                 <constant type="character">{"jsonrpc":"2.0","method":"Player.OnPlay","params":{"data":{"item":{"title":"</constant>
                 <data type="character" terminator_type="character" terminator="&quot;">
-                    <update state="currentMovieName" type="string"/>
+                    <update state="currentEpisodeName" type="string"/>
                 </data>
                 <constant type="character">,"type":"movie","year":</constant>
                 <data type="character" terminator_type="character" terminator="}">
@@ -177,8 +175,8 @@
                             <update_state_variable name="currentEpisodeNumber" update_type="set" update_source="constant"> </update_state_variable>
                             <update_state_variable name="currentSeasonNumber" update_type="set" update_source="constant"> </update_state_variable>
                             <update_state_variable name="currentSeasonName" update_type="set" update_source="constant"> </update_state_variable>
-                            <update_state_variable name="currentMovieName" update_type="set" update_source="constant"> </update_state_variable>
-                            <update_state_variable name="currentMovieYear" update_type="set" update_source="constant"> </update_state_variable>
+                            <!--<update_state_variable name="currentMovieName" update_type="set" update_source="constant"> </update_state_variable>
+                            <update_state_variable name="currentMovieYear" update_type="set" update_source="constant"> </update_state_variable>-->
                         </action>
                     </actions>
                 </run_elements>
