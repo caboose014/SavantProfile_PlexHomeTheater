@@ -1,4 +1,4 @@
-Plex Home Theater profile for Savant
+**Plex Home Theater profile for Savant**
 
 This profile requires that you are running Plex Home Theater 1.0 or above.
 
@@ -9,3 +9,6 @@ You need to enable TCP control of Plex Home Theater by modifying the GUIsettings
 Locate "esallinterfaces" and change this setting to "true"
 
 Restart Plex Home Theater
+
+
+**Information on how to install the custom screens is coming soon**
