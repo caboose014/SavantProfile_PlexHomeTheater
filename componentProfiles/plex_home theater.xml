@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="racepoint_component_profile.xsd" manufacturer="Plex" model="Home Theater" device_class="Media_server" minimum_component_engine_version="0" rpm_xml_version="$Revision: 2.2.9$">
+    xsi:noNamespaceSchemaLocation="racepoint_component_profile.xsd" manufacturer="Plex" model="Home Theater" device_class="Media_server" minimum_component_engine_version="0" rpm_xml_version="$Revision: 2.3.2$">
     <notes>
         You are required to edit the guisettings.xml file located ~/Library/Application Support/Plex Home Theater/userdata
         Locate "esallinterfaces" and change this setting to "true"
@@ -8,7 +8,6 @@
     </notes>
     <resource_ui_mappings>
         <resource_map resource_type="AV_EXTERNALMEDIASERVER_SOURCE" ui_map="plex"/>
-        <resource_map resource_type="AV_EXTERNALMEDIASERVER_SOURCE" ui_map="xbmc"/>
     </resource_ui_mappings>
     <control_interfaces preferred="ip">
         <ip port="9090" response_time_length_ms="500" name_on_component="ETHERNET">
@@ -45,17 +44,25 @@
         <volume_state_variable name="Volume_current_volume" min_value="0" max_value="100" owning_logical_component="Plex" granularity="1.0" state_center_type="string" state_center_binding="CurrentVolume">0</volume_state_variable>
         <state_variable name="getPosistion" state_center_binding="getPosistion" state_center_type="boolean" owning_logical_component="Plex">false</state_variable>
         <state_variable name="progressPercentage" state_center_binding="progressPercentage" state_center_type="integer" owning_logical_component="Plex">0</state_variable>
-        <state_variable name="progressHours" state_center_binding="progressHours" state_center_type="integer" owning_logical_component="Plex">0</state_variable>
-        <state_variable name="progressMilliseconds" state_center_binding="progressMilliseconds" state_center_type="integer" owning_logical_component="Plex">0</state_variable>
-        <state_variable name="progressMinutes" state_center_binding="progressMinutes" state_center_type="integer" owning_logical_component="Plex">0</state_variable>
-        <state_variable name="progressSeconds" state_center_binding="progressSeconds" state_center_type="integer" owning_logical_component="Plex">0</state_variable>
+        <state_variable name="progressHours" state_center_binding="progressHours" state_center_type="string" owning_logical_component="Plex">0</state_variable>
+        <state_variable name="progressMilliseconds" state_center_binding="progressMilliseconds" state_center_type="string" owning_logical_component="Plex">0</state_variable>
+        <state_variable name="progressMinutes" state_center_binding="progressMinutes" state_center_type="string" owning_logical_component="Plex">00</state_variable>
+        <state_variable name="progressSeconds" state_center_binding="progressSeconds" state_center_type="string" owning_logical_component="Plex">00</state_variable>
+        <state_variable name="totalHours" state_center_binding="totalHours" state_center_type="string" owning_logical_component="Plex">0</state_variable>
+        <state_variable name="totalMilliseconds" state_center_binding="totalMilliseconds" state_center_type="string" owning_logical_component="Plex">0</state_variable>
+        <state_variable name="totalMinutes" state_center_binding="totalMinutes" state_center_type="string" owning_logical_component="Plex">00</state_variable>
+        <state_variable name="totalSeconds" state_center_binding="totalSeconds" state_center_type="string" owning_logical_component="Plex">00</state_variable>
+        <state_variable name="isShuffled" state_center_binding="isShuffled" state_center_type="boolean" owning_logical_component="Plex">false</state_variable>
+        <state_variable name="isRepeatAll" state_center_binding="isRepeatAll" state_center_type="boolean" owning_logical_component="Plex">false</state_variable>
+        <state_variable name="isRepeatOne" state_center_binding="isRepeatOne" state_center_type="boolean" owning_logical_component="Plex">false</state_variable>
+        <state_variable name="isRepeatOff" state_center_binding="isRepeatOff" state_center_type="boolean" owning_logical_component="Plex">true</state_variable>
         <state_variable name="currentEpisodeNumber" state_center_binding="currentEpisodeNumber" state_center_type="string" owning_logical_component="Plex"></state_variable>
         <state_variable name="currentSeasonNumber" state_center_binding="currentSeasonNumber" state_center_type="string" owning_logical_component="Plex"></state_variable>
         <state_variable name="currentSeasonName" state_center_binding="currentSeasonName" state_center_type="string" owning_logical_component="Plex"></state_variable>
         <state_variable name="currentEpisodeName" state_center_binding="currentEpisodeName" state_center_type="string" owning_logical_component="Plex"></state_variable>
         <!--<state_variable name="currentMovieName" state_center_binding="currentMovieName" state_center_type="string" owning_logical_component="Plex"></state_variable>
         <state_variable name="currentMovieYear" state_center_binding="currentMovieYear" state_center_type="string" owning_logical_component="Plex"></state_variable>-->
-        <state_variable name="isTVShow" state_center_binding="isTVShow" state_center_type="boolean" owning_logical_component="Plex">true</state_variable>
+        <state_variable name="isTVShow" state_center_binding="isTVShow" state_center_type="boolean" owning_logical_component="Plex">false</state_variable>
     </state_variable_list>
     <logical_component logical_component_name="Plex">
         <implementation>
@@ -142,11 +149,11 @@
             <status_message name="Playing Movie">
                 <constant type="character">{"jsonrpc":"2.0","method":"Player.OnPlay","params":{"data":{"item":{"title":"</constant>
                 <data type="character" terminator_type="character" terminator="&quot;">
-                    <update state="currentEpisodeName" type="string"/>
+                    <update state="currentSeasonName" type="string"/>
                 </data>
                 <constant type="character">,"type":"movie","year":</constant>
                 <data type="character" terminator_type="character" terminator="}">
-                    <update state="currentMovieYear" type="string"/>
+                    <update state="currentEpisodeName" type="string"/>
                 </data>
                 <data type="character" terminator_type="end_of_data"/>
                 <run_elements>
@@ -169,12 +176,19 @@
                             <update_state_variable name="progressPercentage" update_type="set" update_source="constant">0</update_state_variable>
                             <update_state_variable name="progressHours" update_type="set" update_source="constant">0</update_state_variable>
                             <update_state_variable name="progressMilliseconds" update_type="set" update_source="constant">0</update_state_variable>
-                            <update_state_variable name="progressMinutes" update_type="set" update_source="constant">0</update_state_variable>
-                            <update_state_variable name="progressSeconds" update_type="set" update_source="constant">0</update_state_variable>
+                            <update_state_variable name="progressMinutes" update_type="set" update_source="constant">00</update_state_variable>
+                            <update_state_variable name="progressSeconds" update_type="set" update_source="constant">00</update_state_variable>
+                            <update_state_variable name="totalHours" update_type="set" update_source="constant">0</update_state_variable>
+                            <update_state_variable name="totalMilliseconds" update_type="set" update_source="constant">0</update_state_variable>
+                            <update_state_variable name="totalMinutes" update_type="set" update_source="constant">00</update_state_variable>
+                            <update_state_variable name="totalSeconds" update_type="set" update_source="constant">00</update_state_variable>
+                            <update_state_variable name="totalTime" update_type="set" update_source="constant">0:00:00</update_state_variable>
+                            <update_state_variable name="progressTime" update_type="set" update_source="constant">0:00:00</update_state_variable>
                             <update_state_variable name="currentEpisodeName" update_type="set" update_source="constant"> </update_state_variable>
                             <update_state_variable name="currentEpisodeNumber" update_type="set" update_source="constant"> </update_state_variable>
                             <update_state_variable name="currentSeasonNumber" update_type="set" update_source="constant"> </update_state_variable>
                             <update_state_variable name="currentSeasonName" update_type="set" update_source="constant"> </update_state_variable>
+                            <update_state_variable name="isTVShow" update_type="set" update_source="constant">false</update_state_variable>
                             <!--<update_state_variable name="currentMovieName" update_type="set" update_source="constant"> </update_state_variable>
                             <update_state_variable name="currentMovieYear" update_type="set" update_source="constant"> </update_state_variable>-->
                         </action>
@@ -199,21 +213,810 @@
                 </data>
                 <constant type="character">"time":{"hours":</constant>
                 <data type="character" terminator_type="character" terminator=",">
-                    <update state="progressHours" type="integer"/>
+                    <update state="progressHours" type="string"/>
                 </data>
                 <constant type="character">"milliseconds":</constant>
                 <data type="character" terminator_type="character" terminator=",">
-                    <update state="progressMilliseconds" type="integer"/>
+                    <update state="progressMilliseconds" type="string"/>
                 </data>
                 <constant type="character">"minutes":</constant>
                 <data type="character" terminator_type="character" terminator=",">
-                    <update state="progressMinutes" type="integer"/>
+                    <data_map match_required="yes">
+                        <map key="0">
+                            <update state="progressMinutes" type="string">00</update>
+                        </map>
+                        <map key="1">
+                            <update state="progressMinutes" type="string">01</update>
+                        </map>
+                        <map key="2">
+                            <update state="progressMinutes" type="string">02</update>
+                        </map>
+                        <map key="3">
+                            <update state="progressMinutes" type="string">03</update>
+                        </map>
+                        <map key="4">
+                            <update state="progressMinutes" type="string">04</update>
+                        </map>
+                        <map key="5">
+                            <update state="progressMinutes" type="string">05</update>
+                        </map>
+                        <map key="6">
+                            <update state="progressMinutes" type="string">06</update>
+                        </map>
+                        <map key="7">
+                            <update state="progressMinutes" type="string">07</update>
+                        </map>
+                        <map key="8">
+                            <update state="progressMinutes" type="string">08</update>
+                        </map>
+                        <map key="9">
+                            <update state="progressMinutes" type="string">09</update>
+                        </map>
+                        <map key="10">
+                            <update state="progressMinutes" type="string">10</update>
+                        </map>
+                        <map key="11">
+                            <update state="progressMinutes" type="string">11</update>
+                        </map>
+                        <map key="12">
+                            <update state="progressMinutes" type="string">12</update>
+                        </map>
+                        <map key="13">
+                            <update state="progressMinutes" type="string">13</update>
+                        </map>
+                        <map key="14">
+                            <update state="progressMinutes" type="string">14</update>
+                        </map>
+                        <map key="15">
+                            <update state="progressMinutes" type="string">15</update>
+                        </map>
+                        <map key="16">
+                            <update state="progressMinutes" type="string">16</update>
+                        </map>
+                        <map key="17">
+                            <update state="progressMinutes" type="string">17</update>
+                        </map>
+                        <map key="18">
+                            <update state="progressMinutes" type="string">18</update>
+                        </map>
+                        <map key="19">
+                            <update state="progressMinutes" type="string">19</update>
+                        </map>
+                        <map key="20">
+                            <update state="progressMinutes" type="string">20</update>
+                        </map>
+                        <map key="21">
+                            <update state="progressMinutes" type="string">21</update>
+                        </map>
+                        <map key="22">
+                            <update state="progressMinutes" type="string">22</update>
+                        </map>
+                        <map key="23">
+                            <update state="progressMinutes" type="string">23</update>
+                        </map>
+                        <map key="24">
+                            <update state="progressMinutes" type="string">24</update>
+                        </map>
+                        <map key="25">
+                            <update state="progressMinutes" type="string">25</update>
+                        </map>
+                        <map key="26">
+                            <update state="progressMinutes" type="string">26</update>
+                        </map>
+                        <map key="27">
+                            <update state="progressMinutes" type="string">27</update>
+                        </map>
+                        <map key="28">
+                            <update state="progressMinutes" type="string">28</update>
+                        </map>
+                        <map key="29">
+                            <update state="progressMinutes" type="string">29</update>
+                        </map>
+                        <map key="30">
+                            <update state="progressMinutes" type="string">30</update>
+                        </map>
+                        <map key="31">
+                            <update state="progressMinutes" type="string">31</update>
+                        </map>
+                        <map key="32">
+                            <update state="progressMinutes" type="string">32</update>
+                        </map>
+                        <map key="33">
+                            <update state="progressMinutes" type="string">33</update>
+                        </map>
+                        <map key="34">
+                            <update state="progressMinutes" type="string">34</update>
+                        </map>
+                        <map key="35">
+                            <update state="progressMinutes" type="string">35</update>
+                        </map>
+                        <map key="36">
+                            <update state="progressMinutes" type="string">36</update>
+                        </map>
+                        <map key="37">
+                            <update state="progressMinutes" type="string">37</update>
+                        </map>
+                        <map key="38">
+                            <update state="progressMinutes" type="string">38</update>
+                        </map>
+                        <map key="39">
+                            <update state="progressMinutes" type="string">39</update>
+                        </map>
+                        <map key="40">
+                            <update state="progressMinutes" type="string">40</update>
+                        </map>
+                        <map key="41">
+                            <update state="progressMinutes" type="string">41</update>
+                        </map>
+                        <map key="42">
+                            <update state="progressMinutes" type="string">42</update>
+                        </map>
+                        <map key="43">
+                            <update state="progressMinutes" type="string">43</update>
+                        </map>
+                        <map key="44">
+                            <update state="progressMinutes" type="string">44</update>
+                        </map>
+                        <map key="45">
+                            <update state="progressMinutes" type="string">45</update>
+                        </map>
+                        <map key="46">
+                            <update state="progressMinutes" type="string">46</update>
+                        </map>
+                        <map key="47">
+                            <update state="progressMinutes" type="string">47</update>
+                        </map>
+                        <map key="48">
+                            <update state="progressMinutes" type="string">48</update>
+                        </map>
+                        <map key="49">
+                            <update state="progressMinutes" type="string">49</update>
+                        </map>
+                        <map key="50">
+                            <update state="progressMinutes" type="string">50</update>
+                        </map>
+                        <map key="51">
+                            <update state="progressMinutes" type="string">51</update>
+                        </map>
+                        <map key="52">
+                            <update state="progressMinutes" type="string">52</update>
+                        </map>
+                        <map key="53">
+                            <update state="progressMinutes" type="string">53</update>
+                        </map>
+                        <map key="54">
+                            <update state="progressMinutes" type="string">54</update>
+                        </map>
+                        <map key="55">
+                            <update state="progressMinutes" type="string">55</update>
+                        </map>
+                        <map key="56">
+                            <update state="progressMinutes" type="string">56</update>
+                        </map>
+                        <map key="57">
+                            <update state="progressMinutes" type="string">57</update>
+                        </map>
+                        <map key="58">
+                            <update state="progressMinutes" type="string">58</update>
+                        </map>
+                        <map key="59">
+                            <update state="progressMinutes" type="string">59</update>
+                        </map>
+                        <map key="60">
+                            <update state="progressMinutes" type="string">60</update>
+                        </map>
+                    </data_map>
                 </data>
                 <constant type="character">"seconds":</constant>
+                <data type="character" terminator_type="character" terminator="}">
+                    <data_map match_required="yes">
+                        <map key="0">
+                            <update state="progressSeconds" type="string">00</update>
+                        </map>
+                        <map key="1">
+                            <update state="progressSeconds" type="string">01</update>
+                        </map>
+                        <map key="2">
+                            <update state="progressSeconds" type="string">02</update>
+                        </map>
+                        <map key="3">
+                            <update state="progressSeconds" type="string">03</update>
+                        </map>
+                        <map key="4">
+                            <update state="progressSeconds" type="string">04</update>
+                        </map>
+                        <map key="5">
+                            <update state="progressSeconds" type="string">05</update>
+                        </map>
+                        <map key="6">
+                            <update state="progressSeconds" type="string">06</update>
+                        </map>
+                        <map key="7">
+                            <update state="progressSeconds" type="string">07</update>
+                        </map>
+                        <map key="8">
+                            <update state="progressSeconds" type="string">08</update>
+                        </map>
+                        <map key="9">
+                            <update state="progressSeconds" type="string">09</update>
+                        </map>
+                        <map key="10">
+                            <update state="progressSeconds" type="string">10</update>
+                        </map>
+                        <map key="11">
+                            <update state="progressSeconds" type="string">11</update>
+                        </map>
+                        <map key="12">
+                            <update state="progressSeconds" type="string">12</update>
+                        </map>
+                        <map key="13">
+                            <update state="progressSeconds" type="string">13</update>
+                        </map>
+                        <map key="14">
+                            <update state="progressSeconds" type="string">14</update>
+                        </map>
+                        <map key="15">
+                            <update state="progressSeconds" type="string">15</update>
+                        </map>
+                        <map key="16">
+                            <update state="progressSeconds" type="string">16</update>
+                        </map>
+                        <map key="17">
+                            <update state="progressSeconds" type="string">17</update>
+                        </map>
+                        <map key="18">
+                            <update state="progressSeconds" type="string">18</update>
+                        </map>
+                        <map key="19">
+                            <update state="progressSeconds" type="string">19</update>
+                        </map>
+                        <map key="20">
+                            <update state="progressSeconds" type="string">20</update>
+                        </map>
+                        <map key="21">
+                            <update state="progressSeconds" type="string">21</update>
+                        </map>
+                        <map key="22">
+                            <update state="progressSeconds" type="string">22</update>
+                        </map>
+                        <map key="23">
+                            <update state="progressSeconds" type="string">23</update>
+                        </map>
+                        <map key="24">
+                            <update state="progressSeconds" type="string">24</update>
+                        </map>
+                        <map key="25">
+                            <update state="progressSeconds" type="string">25</update>
+                        </map>
+                        <map key="26">
+                            <update state="progressSeconds" type="string">26</update>
+                        </map>
+                        <map key="27">
+                            <update state="progressSeconds" type="string">27</update>
+                        </map>
+                        <map key="28">
+                            <update state="progressSeconds" type="string">28</update>
+                        </map>
+                        <map key="29">
+                            <update state="progressSeconds" type="string">29</update>
+                        </map>
+                        <map key="30">
+                            <update state="progressSeconds" type="string">30</update>
+                        </map>
+                        <map key="31">
+                            <update state="progressSeconds" type="string">31</update>
+                        </map>
+                        <map key="32">
+                            <update state="progressSeconds" type="string">32</update>
+                        </map>
+                        <map key="33">
+                            <update state="progressSeconds" type="string">33</update>
+                        </map>
+                        <map key="34">
+                            <update state="progressSeconds" type="string">34</update>
+                        </map>
+                        <map key="35">
+                            <update state="progressSeconds" type="string">35</update>
+                        </map>
+                        <map key="36">
+                            <update state="progressSeconds" type="string">36</update>
+                        </map>
+                        <map key="37">
+                            <update state="progressSeconds" type="string">37</update>
+                        </map>
+                        <map key="38">
+                            <update state="progressSeconds" type="string">38</update>
+                        </map>
+                        <map key="39">
+                            <update state="progressSeconds" type="string">39</update>
+                        </map>
+                        <map key="40">
+                            <update state="progressSeconds" type="string">40</update>
+                        </map>
+                        <map key="41">
+                            <update state="progressSeconds" type="string">41</update>
+                        </map>
+                        <map key="42">
+                            <update state="progressSeconds" type="string">42</update>
+                        </map>
+                        <map key="43">
+                            <update state="progressSeconds" type="string">43</update>
+                        </map>
+                        <map key="44">
+                            <update state="progressSeconds" type="string">44</update>
+                        </map>
+                        <map key="45">
+                            <update state="progressSeconds" type="string">45</update>
+                        </map>
+                        <map key="46">
+                            <update state="progressSeconds" type="string">46</update>
+                        </map>
+                        <map key="47">
+                            <update state="progressSeconds" type="string">47</update>
+                        </map>
+                        <map key="48">
+                            <update state="progressSeconds" type="string">48</update>
+                        </map>
+                        <map key="49">
+                            <update state="progressSeconds" type="string">49</update>
+                        </map>
+                        <map key="50">
+                            <update state="progressSeconds" type="string">50</update>
+                        </map>
+                        <map key="51">
+                            <update state="progressSeconds" type="string">51</update>
+                        </map>
+                        <map key="52">
+                            <update state="progressSeconds" type="string">52</update>
+                        </map>
+                        <map key="53">
+                            <update state="progressSeconds" type="string">53</update>
+                        </map>
+                        <map key="54">
+                            <update state="progressSeconds" type="string">54</update>
+                        </map>
+                        <map key="55">
+                            <update state="progressSeconds" type="string">55</update>
+                        </map>
+                        <map key="56">
+                            <update state="progressSeconds" type="string">56</update>
+                        </map>
+                        <map key="57">
+                            <update state="progressSeconds" type="string">57</update>
+                        </map>
+                        <map key="58">
+                            <update state="progressSeconds" type="string">58</update>
+                        </map>
+                        <map key="59">
+                            <update state="progressSeconds" type="string">59</update>
+                        </map>
+                        <map key="60">
+                            <update state="progressSeconds" type="string">60</update>
+                        </map>
+                    </data_map>
+                </data>
+                <constant type="character">,"totaltime":{"hours":</constant>
                 <data type="character" terminator_type="character" terminator=",">
-                    <update state="progressSeconds" type="integer"/>
+                    <update state="totalHours" type="string"/>
+                </data>
+                <constant type="character">"milliseconds":</constant>
+                <data type="character" terminator_type="character" terminator=",">
+                    <update state="totalMilliseconds" type="string"/>
+                </data>
+                <constant type="character">"minutes":</constant>
+                <data type="character" terminator_type="character" terminator=",">
+                    <data_map match_required="yes">
+                        <map key="0">
+                            <update state="totalMinutes" type="string">00</update>
+                        </map>
+                        <map key="1">
+                            <update state="totalMinutes" type="string">01</update>
+                        </map>
+                        <map key="2">
+                            <update state="totalMinutes" type="string">02</update>
+                        </map>
+                        <map key="3">
+                            <update state="totalMinutes" type="string">03</update>
+                        </map>
+                        <map key="4">
+                            <update state="totalMinutes" type="string">04</update>
+                        </map>
+                        <map key="5">
+                            <update state="totalMinutes" type="string">05</update>
+                        </map>
+                        <map key="6">
+                            <update state="totalMinutes" type="string">06</update>
+                        </map>
+                        <map key="7">
+                            <update state="totalMinutes" type="string">07</update>
+                        </map>
+                        <map key="8">
+                            <update state="totalMinutes" type="string">08</update>
+                        </map>
+                        <map key="9">
+                            <update state="totalMinutes" type="string">09</update>
+                        </map>
+                        <map key="10">
+                            <update state="totalMinutes" type="string">10</update>
+                        </map>
+                        <map key="11">
+                            <update state="totalMinutes" type="string">11</update>
+                        </map>
+                        <map key="12">
+                            <update state="totalMinutes" type="string">12</update>
+                        </map>
+                        <map key="13">
+                            <update state="totalMinutes" type="string">13</update>
+                        </map>
+                        <map key="14">
+                            <update state="totalMinutes" type="string">14</update>
+                        </map>
+                        <map key="15">
+                            <update state="totalMinutes" type="string">15</update>
+                        </map>
+                        <map key="16">
+                            <update state="totalMinutes" type="string">16</update>
+                        </map>
+                        <map key="17">
+                            <update state="totalMinutes" type="string">17</update>
+                        </map>
+                        <map key="18">
+                            <update state="totalMinutes" type="string">18</update>
+                        </map>
+                        <map key="19">
+                            <update state="totalMinutes" type="string">19</update>
+                        </map>
+                        <map key="20">
+                            <update state="totalMinutes" type="string">20</update>
+                        </map>
+                        <map key="21">
+                            <update state="totalMinutes" type="string">21</update>
+                        </map>
+                        <map key="22">
+                            <update state="totalMinutes" type="string">22</update>
+                        </map>
+                        <map key="23">
+                            <update state="totalMinutes" type="string">23</update>
+                        </map>
+                        <map key="24">
+                            <update state="totalMinutes" type="string">24</update>
+                        </map>
+                        <map key="25">
+                            <update state="totalMinutes" type="string">25</update>
+                        </map>
+                        <map key="26">
+                            <update state="totalMinutes" type="string">26</update>
+                        </map>
+                        <map key="27">
+                            <update state="totalMinutes" type="string">27</update>
+                        </map>
+                        <map key="28">
+                            <update state="totalMinutes" type="string">28</update>
+                        </map>
+                        <map key="29">
+                            <update state="totalMinutes" type="string">29</update>
+                        </map>
+                        <map key="30">
+                            <update state="totalMinutes" type="string">30</update>
+                        </map>
+                        <map key="31">
+                            <update state="totalMinutes" type="string">31</update>
+                        </map>
+                        <map key="32">
+                            <update state="totalMinutes" type="string">32</update>
+                        </map>
+                        <map key="33">
+                            <update state="totalMinutes" type="string">33</update>
+                        </map>
+                        <map key="34">
+                            <update state="totalMinutes" type="string">34</update>
+                        </map>
+                        <map key="35">
+                            <update state="totalMinutes" type="string">35</update>
+                        </map>
+                        <map key="36">
+                            <update state="totalMinutes" type="string">36</update>
+                        </map>
+                        <map key="37">
+                            <update state="totalMinutes" type="string">37</update>
+                        </map>
+                        <map key="38">
+                            <update state="totalMinutes" type="string">38</update>
+                        </map>
+                        <map key="39">
+                            <update state="totalMinutes" type="string">39</update>
+                        </map>
+                        <map key="40">
+                            <update state="totalMinutes" type="string">40</update>
+                        </map>
+                        <map key="41">
+                            <update state="totalMinutes" type="string">41</update>
+                        </map>
+                        <map key="42">
+                            <update state="totalMinutes" type="string">42</update>
+                        </map>
+                        <map key="43">
+                            <update state="totalMinutes" type="string">43</update>
+                        </map>
+                        <map key="44">
+                            <update state="totalMinutes" type="string">44</update>
+                        </map>
+                        <map key="45">
+                            <update state="totalMinutes" type="string">45</update>
+                        </map>
+                        <map key="46">
+                            <update state="totalMinutes" type="string">46</update>
+                        </map>
+                        <map key="47">
+                            <update state="totalMinutes" type="string">47</update>
+                        </map>
+                        <map key="48">
+                            <update state="totalMinutes" type="string">48</update>
+                        </map>
+                        <map key="49">
+                            <update state="totalMinutes" type="string">49</update>
+                        </map>
+                        <map key="50">
+                            <update state="totalMinutes" type="string">50</update>
+                        </map>
+                        <map key="51">
+                            <update state="totalMinutes" type="string">51</update>
+                        </map>
+                        <map key="52">
+                            <update state="totalMinutes" type="string">52</update>
+                        </map>
+                        <map key="53">
+                            <update state="totalMinutes" type="string">53</update>
+                        </map>
+                        <map key="54">
+                            <update state="totalMinutes" type="string">54</update>
+                        </map>
+                        <map key="55">
+                            <update state="totalMinutes" type="string">55</update>
+                        </map>
+                        <map key="56">
+                            <update state="totalMinutes" type="string">56</update>
+                        </map>
+                        <map key="57">
+                            <update state="totalMinutes" type="string">57</update>
+                        </map>
+                        <map key="58">
+                            <update state="totalMinutes" type="string">58</update>
+                        </map>
+                        <map key="59">
+                            <update state="totalMinutes" type="string">59</update>
+                        </map>
+                        <map key="60">
+                            <update state="totalMinutes" type="string">60</update>
+                        </map>
+                    </data_map>
+                </data>
+                <constant type="character">"seconds":</constant>
+                <data type="character" terminator_type="character" terminator="}">
+                    <data_map match_required="yes">
+                        <map key="0">
+                            <update state="totalSeconds" type="string">00</update>
+                        </map>
+                        <map key="1">
+                            <update state="totalSeconds" type="string">01</update>
+                        </map>
+                        <map key="2">
+                            <update state="totalSeconds" type="string">02</update>
+                        </map>
+                        <map key="3">
+                            <update state="totalSeconds" type="string">03</update>
+                        </map>
+                        <map key="4">
+                            <update state="totalSeconds" type="string">04</update>
+                        </map>
+                        <map key="5">
+                            <update state="totalSeconds" type="string">05</update>
+                        </map>
+                        <map key="6">
+                            <update state="totalSeconds" type="string">06</update>
+                        </map>
+                        <map key="7">
+                            <update state="totalSeconds" type="string">07</update>
+                        </map>
+                        <map key="8">
+                            <update state="totalSeconds" type="string">08</update>
+                        </map>
+                        <map key="9">
+                            <update state="totalSeconds" type="string">09</update>
+                        </map>
+                        <map key="10">
+                            <update state="totalSeconds" type="string">10</update>
+                        </map>
+                        <map key="11">
+                            <update state="totalSeconds" type="string">11</update>
+                        </map>
+                        <map key="12">
+                            <update state="totalSeconds" type="string">12</update>
+                        </map>
+                        <map key="13">
+                            <update state="totalSeconds" type="string">13</update>
+                        </map>
+                        <map key="14">
+                            <update state="totalSeconds" type="string">14</update>
+                        </map>
+                        <map key="15">
+                            <update state="totalSeconds" type="string">15</update>
+                        </map>
+                        <map key="16">
+                            <update state="totalSeconds" type="string">16</update>
+                        </map>
+                        <map key="17">
+                            <update state="totalSeconds" type="string">17</update>
+                        </map>
+                        <map key="18">
+                            <update state="totalSeconds" type="string">18</update>
+                        </map>
+                        <map key="19">
+                            <update state="totalSeconds" type="string">19</update>
+                        </map>
+                        <map key="20">
+                            <update state="totalSeconds" type="string">20</update>
+                        </map>
+                        <map key="21">
+                            <update state="totalSeconds" type="string">21</update>
+                        </map>
+                        <map key="22">
+                            <update state="totalSeconds" type="string">22</update>
+                        </map>
+                        <map key="23">
+                            <update state="totalSeconds" type="string">23</update>
+                        </map>
+                        <map key="24">
+                            <update state="totalSeconds" type="string">24</update>
+                        </map>
+                        <map key="25">
+                            <update state="totalSeconds" type="string">25</update>
+                        </map>
+                        <map key="26">
+                            <update state="totalSeconds" type="string">26</update>
+                        </map>
+                        <map key="27">
+                            <update state="totalSeconds" type="string">27</update>
+                        </map>
+                        <map key="28">
+                            <update state="totalSeconds" type="string">28</update>
+                        </map>
+                        <map key="29">
+                            <update state="totalSeconds" type="string">29</update>
+                        </map>
+                        <map key="30">
+                            <update state="totalSeconds" type="string">30</update>
+                        </map>
+                        <map key="31">
+                            <update state="totalSeconds" type="string">31</update>
+                        </map>
+                        <map key="32">
+                            <update state="totalSeconds" type="string">32</update>
+                        </map>
+                        <map key="33">
+                            <update state="totalSeconds" type="string">33</update>
+                        </map>
+                        <map key="34">
+                            <update state="totalSeconds" type="string">34</update>
+                        </map>
+                        <map key="35">
+                            <update state="totalSeconds" type="string">35</update>
+                        </map>
+                        <map key="36">
+                            <update state="totalSeconds" type="string">36</update>
+                        </map>
+                        <map key="37">
+                            <update state="totalSeconds" type="string">37</update>
+                        </map>
+                        <map key="38">
+                            <update state="totalSeconds" type="string">38</update>
+                        </map>
+                        <map key="39">
+                            <update state="totalSeconds" type="string">39</update>
+                        </map>
+                        <map key="40">
+                            <update state="totalSeconds" type="string">40</update>
+                        </map>
+                        <map key="41">
+                            <update state="totalSeconds" type="string">41</update>
+                        </map>
+                        <map key="42">
+                            <update state="totalSeconds" type="string">42</update>
+                        </map>
+                        <map key="43">
+                            <update state="totalSeconds" type="string">43</update>
+                        </map>
+                        <map key="44">
+                            <update state="totalSeconds" type="string">44</update>
+                        </map>
+                        <map key="45">
+                            <update state="totalSeconds" type="string">45</update>
+                        </map>
+                        <map key="46">
+                            <update state="totalSeconds" type="string">46</update>
+                        </map>
+                        <map key="47">
+                            <update state="totalSeconds" type="string">47</update>
+                        </map>
+                        <map key="48">
+                            <update state="totalSeconds" type="string">48</update>
+                        </map>
+                        <map key="49">
+                            <update state="totalSeconds" type="string">49</update>
+                        </map>
+                        <map key="50">
+                            <update state="totalSeconds" type="string">50</update>
+                        </map>
+                        <map key="51">
+                            <update state="totalSeconds" type="string">51</update>
+                        </map>
+                        <map key="52">
+                            <update state="totalSeconds" type="string">52</update>
+                        </map>
+                        <map key="53">
+                            <update state="totalSeconds" type="string">53</update>
+                        </map>
+                        <map key="54">
+                            <update state="totalSeconds" type="string">54</update>
+                        </map>
+                        <map key="55">
+                            <update state="totalSeconds" type="string">55</update>
+                        </map>
+                        <map key="56">
+                            <update state="totalSeconds" type="string">56</update>
+                        </map>
+                        <map key="57">
+                            <update state="totalSeconds" type="string">57</update>
+                        </map>
+                        <map key="58">
+                            <update state="totalSeconds" type="string">58</update>
+                        </map>
+                        <map key="59">
+                            <update state="totalSeconds" type="string">59</update>
+                        </map>
+                        <map key="60">
+                            <update state="totalSeconds" type="string">60</update>
+                        </map>
+                    </data_map>
                 </data>
                 <data type="character" terminator_type="end_of_data"/>
+            </status_message>
+            <status_message name="Shuffle">
+                <constant type="character">{"jsonrpc":"2.0","method":"Player.OnPropertyChanged","params":{"data":{"player":{"playerid":1},"property":{"shuffled":</constant>
+                <data type="character" terminator_type="character" terminator="}">
+                    <data_map match_required="yes">
+                        <map key="true">
+                            <update state="isShuffled" type="boolean">true</update>
+                        </map>
+                        <map key="false">
+                            <update state="isShuffled" type="boolean">false</update>
+                        </map>
+                    </data_map>
+                </data>
+                <data type="character" terminator_type="end_of_data"></data>
+            </status_message>
+            <status_message name="Repeat">
+                <constant type="character">{"jsonrpc":"2.0","method":"Player.OnPropertyChanged","params":{"data":{"player":{"playerid":1},"property":{"repeat":"</constant>
+                <data type="character" terminator_type="character" terminator="&quot;">
+                    <data_map match_required="yes">
+                        <map key="all">
+                            <update state="isRepeatAll" type="boolean">true</update>
+                            <update state="isRepeatOff" type="boolean">false</update>
+                            <update state="isRepeatOne" type="boolean">false</update>
+                        </map>
+                        <map key="one">
+                            <update state="isRepeatOne" type="boolean">true</update>
+                            <update state="isRepeatOff" type="boolean">false</update>
+                            <update state="isRepeatAll" type="boolean">false</update>
+                        </map>
+                        <map key="off">
+                            <update state="isRepeatOff" type="boolean">true</update>
+                            <update state="isRepeatOne" type="boolean">false</update>
+                            <update state="isRepeatAll" type="boolean">false</update>
+                        </map>
+                    </data_map>
+                </data>
+                <data type="character" terminator_type="end_of_data"></data>
             </status_message>
             <status_message name="Playing Has stopped and we missed the queue">
                 <constant type="character">{"error":{"code":-32100,"message":"Failed to execute method."}</constant>
@@ -226,7 +1029,6 @@
                     </actions>
                 </run_elements>
             </status_message>
-            
         </status_messages>
         <resource_component_actions resource_type="AV_VOLUMECONTROL_FUNCTION">
             <action name="IncreaseVolume">
@@ -619,6 +1421,20 @@
                     </command>
                 </command_interface>
             </action>
+            <!--     Substituting for Seek       -->
+            <action name="Yellow">
+                <action_argument name="SeekValue"/>
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Player.Seek","params":{"playerid":1,"value":</command_string>
+                        <parameter_list>
+                            <parameter parameter_data_type="character" action_argument="SeekValue"/>
+                            <parameter parameter_data_type="character">},"id":"1"}</parameter>
+                        </parameter_list>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
         </resource_component_actions>
         <custom_component_actions>
             <action name="SubtitleOff">
@@ -649,7 +1465,7 @@
                 <execute_on_state_variable_condition name="getPosistion" test_condition="equal">true</execute_on_state_variable_condition>
                 <command_interface interface="ip">
                     <command>
-                        <command_string type="character">{"jsonrpc":"2.0","method":"Player.GetProperties","params":{"playerid":1,"properties":["percentage","time"]},"id":"1"}</command_string>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Player.GetProperties","params":{"playerid":1,"properties":["percentage","time","totaltime"]},"id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
                 </command_interface>
