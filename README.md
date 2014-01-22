@@ -11,4 +11,4 @@ Locate "esallinterfaces" and change this setting to "true"
 Restart Plex Home Theater
 
 
-**Information on how to install the custom screens is coming soon**
+**Please read "How To - Injecting Screen.pdf" for install instructions**
