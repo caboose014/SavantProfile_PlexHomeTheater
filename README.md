@@ -8,7 +8,7 @@ You need to enable TCP control of Plex Home Theater by modifying the GUIsettings
 
  - Locate "esallinterfaces" and change this setting to "true"
 
- - Restart Plex Home Theater
+ - Start Plex Home Theater
 
 
 Please note that you will need to be running RacePoint Media version 5.2.2 or above in order to inject the custom screen correctly.
