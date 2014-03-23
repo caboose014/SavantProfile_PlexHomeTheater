@@ -4,10 +4,9 @@ This profile requires that you are running Plex Home Theater 1.0 or above.
 
 You need to enable TCP control of Plex Home Theater by modifying the GUIsettings.xml file, This must be done while PHT is not running:
 
+ - Quit Plex Home Theater 
  - Open ~/Library/Application Support/Plex Home Theater/userdata/guisettings.xml
-
  - Locate "esallinterfaces" and change this setting to "true"
-
  - Start Plex Home Theater
 
 
