@@ -76,19 +76,6 @@
 			<key>ElementSourceIdentifier</key>
 			<string>Buttons/volumeAndLabels/Mute</string>
 		</dict>
-		<key>Next Selection</key>
-		<dict>
-			<key>Enabled</key>
-			<true/>
-			<key>InternalCommand</key>
-			<false/>
-			<key>RPMGraphicIdentifierKey</key>
-			<string>Next Selection</string>
-			<key>ReleaseCommand</key>
-			<string>SkipUp</string>
-			<key>Type</key>
-			<string>Push</string>
-		</dict>
 		<key>Page Down</key>
 		<dict>
 			<key>Enabled</key>
@@ -118,6 +105,29 @@
 			<string>PageUp</string>
 			<key>Type</key>
 			<string>Push</string>
+		</dict>
+		<key>PlayPauseTog</key>
+		<dict>
+			<key>Enabled</key>
+			<true/>
+			<key>Label</key>
+			<string>Pause</string>
+			<key>ReleaseCommand</key>
+			<string>Pause</string>
+			<key>ToggleLabel</key>
+			<string>Play</string>
+			<key>ToggleOnStateName</key>
+			<string>isPlay</string>
+			<key>ToggleOnStateResource</key>
+			<string>AV_EXTERNALMEDIASERVER_SOURCE</string>
+			<key>ToggleOnStateType</key>
+			<string>Resource</string>
+			<key>ToggleReleaseCommand</key>
+			<string>Play</string>
+			<key>ToggleSpeech</key>
+			<string>Play</string>
+			<key>Type</key>
+			<string>Toggle</string>
 		</dict>
 		<key>Plex Repeat All</key>
 		<dict>
@@ -281,19 +291,6 @@
 			<key>Type</key>
 			<string>Push</string>
 		</dict>
-		<key>Previous Selection</key>
-		<dict>
-			<key>Enabled</key>
-			<true/>
-			<key>InternalCommand</key>
-			<false/>
-			<key>RPMGraphicIdentifierKey</key>
-			<string>Previous Selection</string>
-			<key>ReleaseCommand</key>
-			<string>SkipDown</string>
-			<key>Type</key>
-			<string>Push</string>
-		</dict>
 		<key>Progress</key>
 		<dict>
 			<key>Command</key>
@@ -374,6 +371,85 @@
 			<string>StepUp</string>
 			<key>Type</key>
 			<string>Push</string>
+		</dict>
+		<key>ThumbnailViewMovie</key>
+		<dict>
+			<key>RPMOverrideKey</key>
+			<dict>
+				<key>StateBindings</key>
+				<dict>
+					<key>Hidden</key>
+					<dict>
+						<key>MatchValues</key>
+						<array>
+							<string>1</string>
+						</array>
+						<key>StateName</key>
+						<string>isTVShow</string>
+						<key>StateResource</key>
+						<string>AV_EXTERNALMEDIASERVER_SOURCE</string>
+						<key>StateType</key>
+						<string>Resource</string>
+						<key>ValueTransformer</key>
+						<array>
+							<string>MatchValues</string>
+						</array>
+					</dict>
+					<key>URL</key>
+					<dict>
+						<key>StateName</key>
+						<string>thumbnail</string>
+						<key>StateResource</key>
+						<string>AV_EXTERNALMEDIASERVER_SOURCE</string>
+						<key>StateType</key>
+						<string>Resource</string>
+					</dict>
+				</dict>
+				<key>SubViewType</key>
+				<string>CameraView</string>
+			</dict>
+			<key>SubViewType</key>
+			<string>CameraView</string>
+		</dict>
+		<key>ThumbnailViewTV</key>
+		<dict>
+			<key>RPMOverrideKey</key>
+			<dict>
+				<key>StateBindings</key>
+				<dict>
+					<key>Hidden</key>
+					<dict>
+						<key>MatchValues</key>
+						<array>
+							<string>1</string>
+						</array>
+						<key>StateName</key>
+						<string>isTVShow</string>
+						<key>StateResource</key>
+						<string>AV_EXTERNALMEDIASERVER_SOURCE</string>
+						<key>StateType</key>
+						<string>Resource</string>
+						<key>ValueTransformer</key>
+						<array>
+							<string>MatchValues</string>
+							<string>Invert</string>
+						</array>
+					</dict>
+					<key>URL</key>
+					<dict>
+						<key>StateName</key>
+						<string>thumbnail</string>
+						<key>StateResource</key>
+						<string>AV_EXTERNALMEDIASERVER_SOURCE</string>
+						<key>StateType</key>
+						<string>Resource</string>
+					</dict>
+				</dict>
+				<key>SubViewType</key>
+				<string>CameraView</string>
+			</dict>
+			<key>SubViewType</key>
+			<string>CameraView</string>
 		</dict>
 		<key>Volume Down</key>
 		<dict>
