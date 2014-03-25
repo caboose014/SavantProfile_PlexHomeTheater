@@ -17,5 +17,6 @@ Please note that you will need to be running RacePoint Media version 5.2.2 or ab
 
 
 Here is a preview of the updated Retina screen that includes thumbnails:
-![movies](https://copy.com/xrN1o1pnTzOqswHg)
-![tv shows](https://copy.com/HoyIL0Pka4zWM6O7)
+![movies](https://copy.com/fWsLoII7mHoOh436)
+![tv shows](https://copy.com/4k9Jq1QCPIhgckB3)
+![nothing](https://copy.com/mzk96MzcKtEJLtIQ)
