@@ -4,6 +4,28 @@
 <dict>
 	<key>RPMScreenButtonsKey</key>
 	<dict>
+		<key>AspectRatio</key>
+		<dict>
+			<key>RPMOverrideKey</key>
+			<dict>
+				<key>StateBindings</key>
+				<dict>
+					<key>URL</key>
+					<dict>
+						<key>StateName</key>
+						<string>aspectRatio</string>
+						<key>StateResource</key>
+						<string>AV_EXTERNALMEDIASERVER_SOURCE</string>
+						<key>StateType</key>
+						<string>Resource</string>
+					</dict>
+				</dict>
+				<key>SubViewType</key>
+				<string>CameraView</string>
+			</dict>
+			<key>SubViewType</key>
+			<string>CameraView</string>
+		</dict>
 		<key>Audio</key>
 		<dict>
 			<key>Enabled</key>
@@ -16,6 +38,50 @@
 			<string>Audio</string>
 			<key>Type</key>
 			<string>Push</string>
+		</dict>
+		<key>AudioChannels</key>
+		<dict>
+			<key>RPMOverrideKey</key>
+			<dict>
+				<key>StateBindings</key>
+				<dict>
+					<key>URL</key>
+					<dict>
+						<key>StateName</key>
+						<string>audioChannels</string>
+						<key>StateResource</key>
+						<string>AV_EXTERNALMEDIASERVER_SOURCE</string>
+						<key>StateType</key>
+						<string>Resource</string>
+					</dict>
+				</dict>
+				<key>SubViewType</key>
+				<string>CameraView</string>
+			</dict>
+			<key>SubViewType</key>
+			<string>CameraView</string>
+		</dict>
+		<key>AudioCodec</key>
+		<dict>
+			<key>RPMOverrideKey</key>
+			<dict>
+				<key>StateBindings</key>
+				<dict>
+					<key>URL</key>
+					<dict>
+						<key>StateName</key>
+						<string>audioCodec</string>
+						<key>StateResource</key>
+						<string>AV_EXTERNALMEDIASERVER_SOURCE</string>
+						<key>StateType</key>
+						<string>Resource</string>
+					</dict>
+				</dict>
+				<key>SubViewType</key>
+				<string>CameraView</string>
+			</dict>
+			<key>SubViewType</key>
+			<string>CameraView</string>
 		</dict>
 		<key>MediaServer Exit</key>
 		<dict>
@@ -372,29 +438,12 @@
 			<key>Type</key>
 			<string>Push</string>
 		</dict>
-		<key>ThumbnailViewMovie</key>
+		<key>ThumbnailView</key>
 		<dict>
 			<key>RPMOverrideKey</key>
 			<dict>
 				<key>StateBindings</key>
 				<dict>
-					<key>Hidden</key>
-					<dict>
-						<key>MatchValues</key>
-						<array>
-							<string>1</string>
-						</array>
-						<key>StateName</key>
-						<string>isTVShow</string>
-						<key>StateResource</key>
-						<string>AV_EXTERNALMEDIASERVER_SOURCE</string>
-						<key>StateType</key>
-						<string>Resource</string>
-						<key>ValueTransformer</key>
-						<array>
-							<string>MatchValues</string>
-						</array>
-					</dict>
 					<key>URL</key>
 					<dict>
 						<key>StateName</key>
@@ -411,34 +460,60 @@
 			<key>SubViewType</key>
 			<string>CameraView</string>
 		</dict>
-		<key>ThumbnailViewTV</key>
+		<key>VideoCodec</key>
 		<dict>
 			<key>RPMOverrideKey</key>
 			<dict>
 				<key>StateBindings</key>
 				<dict>
-					<key>Hidden</key>
+					<key>URL</key>
 					<dict>
-						<key>MatchValues</key>
-						<array>
-							<string>1</string>
-						</array>
 						<key>StateName</key>
-						<string>isTVShow</string>
+						<string>videoCodec</string>
 						<key>StateResource</key>
 						<string>AV_EXTERNALMEDIASERVER_SOURCE</string>
 						<key>StateType</key>
 						<string>Resource</string>
-						<key>ValueTransformer</key>
-						<array>
-							<string>MatchValues</string>
-							<string>Invert</string>
-						</array>
 					</dict>
+				</dict>
+				<key>SubViewType</key>
+				<string>CameraView</string>
+			</dict>
+			<key>SubViewType</key>
+			<string>CameraView</string>
+		</dict>
+		<key>VideoFrameRate</key>
+		<dict>
+			<key>RPMOverrideKey</key>
+			<dict>
+				<key>StateBindings</key>
+				<dict>
 					<key>URL</key>
 					<dict>
 						<key>StateName</key>
-						<string>thumbnail</string>
+						<string>videoFrameRate</string>
+						<key>StateResource</key>
+						<string>AV_EXTERNALMEDIASERVER_SOURCE</string>
+						<key>StateType</key>
+						<string>Resource</string>
+					</dict>
+				</dict>
+				<key>SubViewType</key>
+				<string>CameraView</string>
+			</dict>
+			<key>SubViewType</key>
+			<string>CameraView</string>
+		</dict>
+		<key>VideoResolution</key>
+		<dict>
+			<key>RPMOverrideKey</key>
+			<dict>
+				<key>StateBindings</key>
+				<dict>
+					<key>URL</key>
+					<dict>
+						<key>StateName</key>
+						<string>videoResolution</string>
 						<key>StateResource</key>
 						<string>AV_EXTERNALMEDIASERVER_SOURCE</string>
 						<key>StateType</key>

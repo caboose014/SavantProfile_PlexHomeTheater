@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="racepoint_component_profile.xsd" unique_identifier="ip_address" manufacturer="Plex" model="Home Theater" device_class="Media_server" minimum_component_engine_version="0" rpm_xml_version="$Revision: 2.3.9$">
+    xsi:noNamespaceSchemaLocation="racepoint_component_profile.xsd" unique_identifier="none" manufacturer="Plex" model="Home Theater" device_class="Media_server" minimum_component_engine_version="0" rpm_xml_version="$Revision: 2.3.15$">
     <notes>
+        
         You are required to edit the guisettings.xml file located ~/Library/Application Support/Plex Home Theater/userdata
         Locate "esallinterfaces" and change this setting to "true". Besure that Plex Home Theater is not running when you do this.
         
-        For thumbnails to work, you need to enter the Plex Media Servers IP address in the 'IP Address' field, and the IP address of Plex Home Theater on the wire.
+        !!*** For thumbnails to work, you need to enter the Plex Media Servers IP address in the 'IP Address' field, and the IP address of Plex Home Theater Client on the wire.
+        
+        !!*** Some thumbnails may not work if you have scanned your media using an older version of Plex Media Server.
+        
+        !!*** This profile has been tested with a NEW library using Plex Home Thearer v1.0.13.222 and Plex Media Server v0.9.9.7
+        
+        ====================== Change Log ==================
+        Version: 2.3.15 Change:  - Updated methods of fetching URLS
+        Version: 2.3.14 Change:  - Added thumbnails, and video information
     </notes>
     <resource_ui_mappings>
         <resource_map resource_type="AV_EXTERNALMEDIASERVER_SOURCE" ui_map="plex"/>
@@ -62,6 +71,19 @@
         <state_variable name="plot" state_center_binding="plot" state_center_type="string" owning_logical_component="Plex"></state_variable>
         <state_variable name="rating" state_center_binding="rating" state_center_type="string" owning_logical_component="Plex"></state_variable>
         <state_variable name="trapThumb" state_center_binding="trapThumb" state_center_type="string" owning_logical_component="Plex"></state_variable>
+        <state_variable name="aspectRatio" state_center_binding="aspectRatio" state_center_type="string" owning_logical_component="Plex"></state_variable>
+        <state_variable name="aspectRatio1" state_center_binding="aspectRatio1" state_center_type="string" owning_logical_component="Plex"></state_variable>
+        <state_variable name="audioChannels" state_center_binding="audioChannels" state_center_type="string" owning_logical_component="Plex"></state_variable>
+        <state_variable name="audioChannels1" state_center_binding="audioChannels1" state_center_type="string" owning_logical_component="Plex"></state_variable>
+        <state_variable name="audioCodec" state_center_binding="audioCodec" state_center_type="string" owning_logical_component="Plex"></state_variable>
+        <state_variable name="audioCodec1" state_center_binding="audioCodec1" state_center_type="string" owning_logical_component="Plex"></state_variable>
+        <state_variable name="videoCodec" state_center_binding="videoCodec" state_center_type="string" owning_logical_component="Plex"></state_variable>
+        <state_variable name="videoCodec1" state_center_binding="videoCodec1" state_center_type="string" owning_logical_component="Plex"></state_variable>
+        <state_variable name="videoFrameRate" state_center_binding="videoFrameRate" state_center_type="string" owning_logical_component="Plex"></state_variable>
+        <state_variable name="videoFrameRate1" state_center_binding="videoFrameRate1" state_center_type="string" owning_logical_component="Plex"></state_variable>
+        <state_variable name="videoResolution" state_center_binding="videoResolution" state_center_type="string" owning_logical_component="Plex"></state_variable>
+        <state_variable name="videoResolution1" state_center_binding="videoResolution1" state_center_type="string" owning_logical_component="Plex"></state_variable>
+        <state_variable name="vidstats" state_center_binding="vidstats" state_center_type="string" owning_logical_component="Plex"></state_variable>
         <state_variable name="thumbnail" state_center_binding="thumbnail" state_center_type="string" owning_logical_component="Plex"></state_variable>
         <state_variable name="thumbnailpt1" state_center_binding="thumbnailpt1" state_center_type="string" owning_logical_component="Plex"></state_variable>
         <state_variable name="thumbnailpt2" state_center_binding="thumbnailpt2" state_center_type="string" owning_logical_component="Plex"></state_variable>
@@ -69,7 +91,6 @@
         <state_variable name="currentSeasonNumber" state_center_binding="currentSeasonNumber" state_center_type="string" owning_logical_component="Plex"></state_variable>
         <state_variable name="currentSeasonName" state_center_binding="currentSeasonName" state_center_type="string" owning_logical_component="Plex"></state_variable>
         <state_variable name="currentEpisodeName" state_center_binding="currentEpisodeName" state_center_type="string" owning_logical_component="Plex"></state_variable>
-        <state_variable name="currentThumbnail" state_center_binding="currentThumbnail" state_center_type="string" owning_logical_component="Plex"></state_variable>
         <state_variable name="isTVShow" state_center_binding="isTVShow" state_center_type="boolean" owning_logical_component="Plex">false</state_variable>
     </state_variable_list>
     <logical_component logical_component_name="Plex">
@@ -122,7 +143,6 @@
                         <action name="StartPosCheck">
                             <update_state_variable name="getPosistion" update_type="set" update_source="constant">true</update_state_variable>
                             <update_state_variable name="isTVShow" update_type="set" update_source="constant">true</update_state_variable>
-                            <update_state_variable name="isMovie" update_type="set" update_source="constant">false</update_state_variable>
                             <update_state_variable name="isPlay" update_type="set" update_source="constant">true</update_state_variable>
                         </action>
                     </actions>
@@ -171,7 +191,6 @@
                         <action name="StartPosCheck">
                             <update_state_variable name="getPosistion" update_type="set" update_source="constant">true</update_state_variable>
                             <update_state_variable name="isTVShow" update_type="set" update_source="constant">false</update_state_variable>
-                            <update_state_variable name="isMovie" update_type="set" update_source="constant">true</update_state_variable>
                             <update_state_variable name="isPlay" update_type="set" update_source="constant">true</update_state_variable>
                         </action>
                     </actions>
@@ -202,6 +221,12 @@
                             <update_state_variable name="isTVShow" update_type="set" update_source="constant">false</update_state_variable>
                             <update_state_variable name="isPlay" update_type="set" update_source="constant">false</update_state_variable>
                             <update_state_variable name="thumbnail" update_type="set" update_source="constant"></update_state_variable>
+                            <update_state_variable name="aspectRatio" update_type="set" update_source="constant"></update_state_variable>
+                            <update_state_variable name="audioChannels" update_type="set" update_source="constant"></update_state_variable>
+                            <update_state_variable name="audioCodec" update_type="set" update_source="constant"></update_state_variable>
+                            <update_state_variable name="videoCodec" update_type="set" update_source="constant"></update_state_variable>
+                            <update_state_variable name="videoFrameRate" update_type="set" update_source="constant"></update_state_variable>
+                            <update_state_variable name="videoResolution" update_type="set" update_source="constant"></update_state_variable>
                         </action>
                     </actions>
                 </run_elements>
@@ -993,26 +1018,12 @@
                 </data>
                 <data type="character" terminator_type="end_of_data"/>
             </status_message>
-            <status_message name="GetThumbnailandPlot">
-                <constant type="character">{"id":"1","jsonrpc":"2.0","result":{"item":{"duration":</constant>
-                <data type="character" terminator_type="character" terminator=","/>  
-                
-                <constant type="character">"label":"</constant>
-                <data type="character" terminator_type="character" terminator=","/>
-                
-                <constant type="character">"plot":"</constant>
-                <data type="character" terminator_type="character" terminator="&quot;">
-                    <update state="plot" type="string"/>
-                </data>
-                <constant type="character">,"rating":</constant>
-                <data type="character" terminator_type="character" terminator=",">
-                    <update state="rating" type="float"/>
-                </data>
-                <constant type="character">"runtime":</constant>
-                <data type="character" terminator_type="character" terminator="," />
-                
-                <constant type="character">"thumbnail":"image://plexserver</constant>
-                <data type="character" terminator_type="character" terminator="."/>
+            <status_message name="GetArtandPlot_TV">
+                <constant type="character">{"id":"1","jsonrpc":"2.0","result":{"item":{"art":{"bigGrandparentThumb":"image://plexserver</constant>
+                <data type="character" terminator_type="character" terminator=","/> <!--bigGrandparentThumb--> 
+                <data type="character" terminator_type="character" terminator=","/> <!--bigThumb--> 
+                <data type="character" terminator_type="character" terminator=","/> <!--fanart--> 
+                <data type="character" terminator_type="character" terminator="."/> <!--grandparentThumb--> 
                 <constant type="character">0.0.1%253a32400%252flibrary%252fmetadata%252f</constant>
                 <data type="character" terminator_type="character" terminator="%">
                     <update state="thumbnailpt1" type="string"></update>
@@ -1020,6 +1031,87 @@
                 <constant type="character">252fthumb%252f</constant>
                 <data type="character" terminator_type="character" terminator="%">
                     <update state="thumbnailpt2" type="string"/>
+                </data>
+                <data type="character" terminator_type="character" terminator=","/> <!-- End grandparentThumb-->
+                
+                <data type="character" terminator_type="character" terminator="."/> <!--aspectRatio-->
+                <constant type="character">0.0.1%253a32400%252fsystem%252fbundle%252fmedia%252fflags%252faspectRatio%252f</constant>
+                <data type="character" terminator_type="character" terminator="%">
+                    <update state="aspectRatio1" type="string"></update>
+                </data>
+                <constant type="character">253ft%</constant>
+                <data type="character" terminator_type="character" terminator="%">
+                    <update state="vidstats" type="string"></update>
+                </data>
+                <data type="character" terminator_type="character" terminator=","/> <!-- End aspectRatio-->
+                
+                <data type="character" terminator_type="character" terminator="."/> <!--audioChannels-->
+                <constant type="character">0.0.1%253a32400%252fsystem%252fbundle%252fmedia%252fflags%252faudioChannels%252f</constant> 
+                <data type="character" terminator_type="character" terminator="%">
+                    <update state="audioChannels1" type="string"></update>
+                </data>
+                <constant type="character">253ft%</constant>
+                <data type="character" terminator_type="character" terminator="%">
+                    <update state="vidstats" type="string"></update>
+                </data>
+                <data type="character" terminator_type="character" terminator=","/> <!-- End audioChannels-->
+                
+                <data type="character" terminator_type="character" terminator="."/> <!--audioCodec-->
+                <constant type="character">0.0.1%253a32400%252fsystem%252fbundle%252fmedia%252fflags%252faudioCodec%252f</constant>
+                <data type="character" terminator_type="character" terminator="%">
+                    <update state="audioCodec1" type="string"></update>
+                </data>
+                <constant type="character">253ft%</constant>
+                <data type="character" terminator_type="character" terminator="%">
+                    <update state="vidstats" type="string"></update>
+                </data>
+                <data type="character" terminator_type="character" terminator=","/> <!-- End audioCodec-->
+                            
+                <data type="character" terminator_type="character" terminator=","/> <!--contentRating-->
+                
+                <data type="character" terminator_type="character" terminator="."/> <!--videoCodec-->
+                <constant type="character">0.0.1%253a32400%252fsystem%252fbundle%252fmedia%252fflags%252fvideoCodec%252f</constant>
+                <data type="character" terminator_type="character" terminator="%">
+                    <update state="videoCodec1" type="string"></update>
+                </data>
+                <constant type="character">253ft%</constant>
+                <data type="character" terminator_type="character" terminator="%">
+                    <update state="vidstats" type="string"></update>
+                </data>
+                <data type="character" terminator_type="character" terminator=","/> <!-- End videoCodec-->
+                
+                <data type="character" terminator_type="character" terminator="."/> <!--videoFrameRate-->
+                <constant type="character">0.0.1%253a32400%252fsystem%252fbundle%252fmedia%252fflags%252fvideoFrameRate%252f</constant>
+                <data type="character" terminator_type="character" terminator="%">
+                    <update state="videoFrameRate1" type="string"></update>
+                </data>
+                <constant type="character">253ft%</constant>
+                <data type="character" terminator_type="character" terminator="%">
+                    <update state="vidstats" type="string"></update>
+                </data>
+                <data type="character" terminator_type="character" terminator=","/> <!-- End videoFrameRate-->
+                
+                <data type="character" terminator_type="character" terminator="."/> <!--videoResolution-->
+                <constant type="character">0.0.1%253a32400%252fsystem%252fbundle%252fmedia%252fflags%252fvideoResolution%252f</constant>
+                <data type="character" terminator_type="character" terminator="%">
+                    <update state="videoResolution1" type="string"></update>
+                </data>
+                <constant type="character">253ft%</constant>
+                <data type="character" terminator_type="character" terminator="%">
+                    <update state="vidstats" type="string"></update>
+                </data>
+                <data type="character" terminator_type="character" terminator=","/> <!-- End videoResolution-->
+                
+                <data type="character" terminator_type="character" terminator=","/> <!--parentThumb-->
+                <data type="character" terminator_type="character" terminator=","/> <!--poster-->
+                <data type="character" terminator_type="character" terminator=","/> <!--smallGrandparentThumb-->
+                <data type="character" terminator_type="character" terminator=","/> <!--smallThumb-->
+                <data type="character" terminator_type="character" terminator=","/> <!--thumb-->
+                <data type="character" terminator_type="character" terminator=","/> <!--tvshow.thumb-->
+                <data type="character" terminator_type="character" terminator=","/> <!--label-->
+                <constant type="character">"rating":</constant>
+                <data type="character" terminator_type="character" terminator=",">
+                    <update state="rating" type="float"/>
                 </data>
                 <data type="character" terminator_type="end_of_data"/>
                 <run_elements>
@@ -1031,6 +1123,193 @@
                             <update_state_variable name="thumbnail" update_type="append" update_source="state_variable">thumbnailpt1</update_state_variable>
                             <update_state_variable name="thumbnail" update_type="append" update_source="constant">/thumb/</update_state_variable>
                             <update_state_variable name="thumbnail" update_type="append" update_source="state_variable">thumbnailpt2</update_state_variable>
+                            
+                            <update_state_variable name="aspectRatio" update_type="set" update_source="constant">http://</update_state_variable>
+                            <update_state_variable name="aspectRatio" update_type="append" update_source="state_variable">UID</update_state_variable>
+                            <update_state_variable name="aspectRatio" update_type="append" update_source="constant">:32400/system/bundle/media/flags/aspectRatio/</update_state_variable>
+                            <update_state_variable name="aspectRatio" update_type="append" update_source="state_variable">aspectRatio1</update_state_variable>
+                            <update_state_variable name="aspectRatio" update_type="append" update_source="constant">?t=</update_state_variable>
+                            <update_state_variable name="aspectRatio" update_type="append" update_source="state_variable">vidstats</update_state_variable>
+                            
+                            <update_state_variable name="audioChannels" update_type="set" update_source="constant">http://</update_state_variable>
+                            <update_state_variable name="audioChannels" update_type="append" update_source="state_variable">UID</update_state_variable>
+                            <update_state_variable name="audioChannels" update_type="append" update_source="constant">:32400/system/bundle/media/flags/audioChannels/</update_state_variable>
+                            <update_state_variable name="audioChannels" update_type="append" update_source="state_variable">audioChannels1</update_state_variable>
+                            <update_state_variable name="audioChannels" update_type="append" update_source="constant">?t=</update_state_variable>
+                            <update_state_variable name="audioChannels" update_type="append" update_source="state_variable">vidstats</update_state_variable>
+                            
+                            <update_state_variable name="audioCodec" update_type="set" update_source="constant">http://</update_state_variable>
+                            <update_state_variable name="audioCodec" update_type="append" update_source="state_variable">UID</update_state_variable>
+                            <update_state_variable name="audioCodec" update_type="append" update_source="constant">:32400/system/bundle/media/flags/audioCodec/</update_state_variable>
+                            <update_state_variable name="audioCodec" update_type="append" update_source="state_variable">audioCodec1</update_state_variable>
+                            <update_state_variable name="audioCodec" update_type="append" update_source="constant">?t=</update_state_variable>
+                            <update_state_variable name="audioCodec" update_type="append" update_source="state_variable">vidstats</update_state_variable>
+                            
+                            <update_state_variable name="videoCodec" update_type="set" update_source="constant">http://</update_state_variable>
+                            <update_state_variable name="videoCodec" update_type="append" update_source="state_variable">UID</update_state_variable>
+                            <update_state_variable name="videoCodec" update_type="append" update_source="constant">:32400/system/bundle/media/flags/videoCodec/</update_state_variable>
+                            <update_state_variable name="videoCodec" update_type="append" update_source="state_variable">videoCodec1</update_state_variable>
+                            <update_state_variable name="videoCodec" update_type="append" update_source="constant">?t=</update_state_variable>
+                            <update_state_variable name="videoCodec" update_type="append" update_source="state_variable">vidstats</update_state_variable>
+                            
+                            <update_state_variable name="videoFrameRate" update_type="set" update_source="constant">http://</update_state_variable>
+                            <update_state_variable name="videoFrameRate" update_type="append" update_source="state_variable">UID</update_state_variable>
+                            <update_state_variable name="videoFrameRate" update_type="append" update_source="constant">:32400/system/bundle/media/flags/videoFrameRate/</update_state_variable>
+                            <update_state_variable name="videoFrameRate" update_type="append" update_source="state_variable">videoFrameRate1</update_state_variable>
+                            <update_state_variable name="videoFrameRate" update_type="append" update_source="constant">?t=</update_state_variable>
+                            <update_state_variable name="videoFrameRate" update_type="append" update_source="state_variable">vidstats</update_state_variable>
+                            
+                            <update_state_variable name="videoResolution" update_type="set" update_source="constant">http://</update_state_variable>
+                            <update_state_variable name="videoResolution" update_type="append" update_source="state_variable">UID</update_state_variable>
+                            <update_state_variable name="videoResolution" update_type="append" update_source="constant">:32400/system/bundle/media/flags/videoResolution/</update_state_variable>
+                            <update_state_variable name="videoResolution" update_type="append" update_source="state_variable">videoResolution1</update_state_variable>
+                            <update_state_variable name="videoResolution" update_type="append" update_source="constant">?t=</update_state_variable>
+                            <update_state_variable name="videoResolution" update_type="append" update_source="state_variable">vidstats</update_state_variable>
+                        </action>
+                    </actions>
+                </run_elements>
+            </status_message>
+            <status_message name="GetArtandPlot_Movie">
+                <constant type="character">{"id":"1","jsonrpc":"2.0","result":{"item":{"art":{"bigThumb":"image://plexserver</constant>
+                <data type="character" terminator_type="character" terminator="."/> <!--bigThumb--> 
+                <constant type="character">0.0.1%253a32400%252flibrary%252fmetadata%252f</constant>
+                <data type="character" terminator_type="character" terminator="%">
+                    <update state="thumbnailpt1" type="string"></update>
+                </data>
+                <constant type="character">252fthumb%252f</constant>
+                <data type="character" terminator_type="character" terminator="%">
+                    <update state="thumbnailpt2" type="string"/>
+                </data>
+                <data type="character" terminator_type="character" terminator=","/> <!-- End bigThumb-->
+                <data type="character" terminator_type="character" terminator=","/> <!--fanart--> 
+                <data type="character" terminator_type="character" terminator="."/> <!--aspectRatio-->
+                <constant type="character">0.0.1%253a32400%252fsystem%252fbundle%252fmedia%252fflags%252faspectRatio%252f</constant>
+                <data type="character" terminator_type="character" terminator="%">
+                    <update state="aspectRatio1" type="string"></update>
+                </data>
+                <constant type="character">253ft%</constant>
+                <data type="character" terminator_type="character" terminator="%">
+                    <update state="vidstats" type="string"></update>
+                </data>
+                <data type="character" terminator_type="character" terminator=","/> <!-- End aspectRatio-->
+                
+                <data type="character" terminator_type="character" terminator="."/> <!--audioChannels-->
+                <constant type="character">0.0.1%253a32400%252fsystem%252fbundle%252fmedia%252fflags%252faudioChannels%252f</constant> 
+                <data type="character" terminator_type="character" terminator="%">
+                    <update state="audioChannels1" type="string"></update>
+                </data>
+                <constant type="character">253ft%</constant>
+                <data type="character" terminator_type="character" terminator="%">
+                    <update state="vidstats" type="string"></update>
+                </data>
+                <data type="character" terminator_type="character" terminator=","/> <!-- End audioChannels-->
+                
+                <data type="character" terminator_type="character" terminator="."/> <!--audioCodec-->
+                <constant type="character">0.0.1%253a32400%252fsystem%252fbundle%252fmedia%252fflags%252faudioCodec%252f</constant>
+                <data type="character" terminator_type="character" terminator="%">
+                    <update state="audioCodec1" type="string"></update>
+                </data>
+                <constant type="character">253ft%</constant>
+                <data type="character" terminator_type="character" terminator="%">
+                    <update state="vidstats" type="string"></update>
+                </data>
+                <data type="character" terminator_type="character" terminator=","/> <!-- End audioCodec-->
+                
+                <data type="character" terminator_type="character" terminator=","/> <!--contentRating-->
+                <data type="character" terminator_type="character" terminator=","/> <!--studio-->
+                
+                <data type="character" terminator_type="character" terminator="."/> <!--videoCodec-->
+                <constant type="character">0.0.1%253a32400%252fsystem%252fbundle%252fmedia%252fflags%252fvideoCodec%252f</constant>
+                <data type="character" terminator_type="character" terminator="%">
+                    <update state="videoCodec1" type="string"></update>
+                </data>
+                <constant type="character">253ft%</constant>
+                <data type="character" terminator_type="character" terminator="%">
+                    <update state="vidstats" type="string"></update>
+                </data>
+                <data type="character" terminator_type="character" terminator=","/> <!-- End videoCodec-->
+                
+                <data type="character" terminator_type="character" terminator="."/> <!--videoFrameRate-->
+                <constant type="character">0.0.1%253a32400%252fsystem%252fbundle%252fmedia%252fflags%252fvideoFrameRate%252f</constant>
+                <data type="character" terminator_type="character" terminator="%">
+                    <update state="videoFrameRate1" type="string"></update>
+                </data>
+                <constant type="character">253ft%</constant>
+                <data type="character" terminator_type="character" terminator="%">
+                    <update state="vidstats" type="string"></update>
+                </data>
+                <data type="character" terminator_type="character" terminator=","/> <!-- End videoFrameRate-->
+                
+                <data type="character" terminator_type="character" terminator="."/> <!--videoResolution-->
+                <constant type="character">0.0.1%253a32400%252fsystem%252fbundle%252fmedia%252fflags%252fvideoResolution%252f</constant>
+                <data type="character" terminator_type="character" terminator="%">
+                    <update state="videoResolution1" type="string"></update>
+                </data>
+                <constant type="character">253ft%</constant>
+                <data type="character" terminator_type="character" terminator="%">
+                    <update state="vidstats" type="string"></update>
+                </data>
+                <data type="character" terminator_type="character" terminator=","/> <!-- End videoResolution-->
+                <data type="character" terminator_type="character" terminator=","/> <!--poster-->
+                <data type="character" terminator_type="character" terminator=","/> <!--smallThumb-->
+                <data type="character" terminator_type="character" terminator=","/> <!--thumb-->
+                <data type="character" terminator_type="character" terminator=","/> <!--label-->
+                <constant type="character">"rating":</constant>
+                <data type="character" terminator_type="character" terminator=",">
+                    <update state="rating" type="float"/>
+                </data>
+                <data type="character" terminator_type="end_of_data"/>
+                <run_elements>
+                    <actions>
+                        <action name="updateThumbnails">
+                            <update_state_variable name="thumbnail" update_type="set" update_source="constant">http://</update_state_variable>
+                            <update_state_variable name="thumbnail" update_type="append" update_source="state_variable">UID</update_state_variable>
+                            <update_state_variable name="thumbnail" update_type="append" update_source="constant">:32400/library/metadata/</update_state_variable>
+                            <update_state_variable name="thumbnail" update_type="append" update_source="state_variable">thumbnailpt1</update_state_variable>
+                            <update_state_variable name="thumbnail" update_type="append" update_source="constant">/thumb/</update_state_variable>
+                            <update_state_variable name="thumbnail" update_type="append" update_source="state_variable">thumbnailpt2</update_state_variable>
+                            
+                            <update_state_variable name="aspectRatio" update_type="set" update_source="constant">http://</update_state_variable>
+                            <update_state_variable name="aspectRatio" update_type="append" update_source="state_variable">UID</update_state_variable>
+                            <update_state_variable name="aspectRatio" update_type="append" update_source="constant">:32400/system/bundle/media/flags/aspectRatio/</update_state_variable>
+                            <update_state_variable name="aspectRatio" update_type="append" update_source="state_variable">aspectRatio1</update_state_variable>
+                            <update_state_variable name="aspectRatio" update_type="append" update_source="constant">?t=</update_state_variable>
+                            <update_state_variable name="aspectRatio" update_type="append" update_source="state_variable">vidstats</update_state_variable>
+                            
+                            <update_state_variable name="audioChannels" update_type="set" update_source="constant">http://</update_state_variable>
+                            <update_state_variable name="audioChannels" update_type="append" update_source="state_variable">UID</update_state_variable>
+                            <update_state_variable name="audioChannels" update_type="append" update_source="constant">:32400/system/bundle/media/flags/audioChannels/</update_state_variable>
+                            <update_state_variable name="audioChannels" update_type="append" update_source="state_variable">audioChannels1</update_state_variable>
+                            <update_state_variable name="audioChannels" update_type="append" update_source="constant">?t=</update_state_variable>
+                            <update_state_variable name="audioChannels" update_type="append" update_source="state_variable">vidstats</update_state_variable>
+                            
+                            <update_state_variable name="audioCodec" update_type="set" update_source="constant">http://</update_state_variable>
+                            <update_state_variable name="audioCodec" update_type="append" update_source="state_variable">UID</update_state_variable>
+                            <update_state_variable name="audioCodec" update_type="append" update_source="constant">:32400/system/bundle/media/flags/audioCodec/</update_state_variable>
+                            <update_state_variable name="audioCodec" update_type="append" update_source="state_variable">audioCodec1</update_state_variable>
+                            <update_state_variable name="audioCodec" update_type="append" update_source="constant">?t=</update_state_variable>
+                            <update_state_variable name="audioCodec" update_type="append" update_source="state_variable">vidstats</update_state_variable>
+                            
+                            <update_state_variable name="videoCodec" update_type="set" update_source="constant">http://</update_state_variable>
+                            <update_state_variable name="videoCodec" update_type="append" update_source="state_variable">UID</update_state_variable>
+                            <update_state_variable name="videoCodec" update_type="append" update_source="constant">:32400/system/bundle/media/flags/videoCodec/</update_state_variable>
+                            <update_state_variable name="videoCodec" update_type="append" update_source="state_variable">videoCodec1</update_state_variable>
+                            <update_state_variable name="videoCodec" update_type="append" update_source="constant">?t=</update_state_variable>
+                            <update_state_variable name="videoCodec" update_type="append" update_source="state_variable">vidstats</update_state_variable>
+                            
+                            <update_state_variable name="videoFrameRate" update_type="set" update_source="constant">http://</update_state_variable>
+                            <update_state_variable name="videoFrameRate" update_type="append" update_source="state_variable">UID</update_state_variable>
+                            <update_state_variable name="videoFrameRate" update_type="append" update_source="constant">:32400/system/bundle/media/flags/videoFrameRate/</update_state_variable>
+                            <update_state_variable name="videoFrameRate" update_type="append" update_source="state_variable">videoFrameRate1</update_state_variable>
+                            <update_state_variable name="videoFrameRate" update_type="append" update_source="constant">?t=</update_state_variable>
+                            <update_state_variable name="videoFrameRate" update_type="append" update_source="state_variable">vidstats</update_state_variable>
+                            
+                            <update_state_variable name="videoResolution" update_type="set" update_source="constant">http://</update_state_variable>
+                            <update_state_variable name="videoResolution" update_type="append" update_source="state_variable">UID</update_state_variable>
+                            <update_state_variable name="videoResolution" update_type="append" update_source="constant">:32400/system/bundle/media/flags/videoResolution/</update_state_variable>
+                            <update_state_variable name="videoResolution" update_type="append" update_source="state_variable">videoResolution1</update_state_variable>
+                            <update_state_variable name="videoResolution" update_type="append" update_source="constant">?t=</update_state_variable>
+                            <update_state_variable name="videoResolution" update_type="append" update_source="state_variable">vidstats</update_state_variable>
                         </action>
                     </actions>
                 </run_elements>
@@ -1077,9 +1356,31 @@
                 <run_elements>
                     <actions>
                         <action name="Stop Query">
-                            <execute_on_state_variable_condition name="getPosistion" test_condition="equal">true</execute_on_state_variable_condition>
                             <update_state_variable name="getPosistion" update_type="set" update_source="constant">false</update_state_variable>
+                            <update_state_variable name="progressPercentage" update_type="set" update_source="constant">0</update_state_variable>
+                            <update_state_variable name="progressHours" update_type="set" update_source="constant">0</update_state_variable>
+                            <update_state_variable name="progressMilliseconds" update_type="set" update_source="constant">0</update_state_variable>
+                            <update_state_variable name="progressMinutes" update_type="set" update_source="constant">00</update_state_variable>
+                            <update_state_variable name="progressSeconds" update_type="set" update_source="constant">00</update_state_variable>
+                            <update_state_variable name="totalHours" update_type="set" update_source="constant">0</update_state_variable>
+                            <update_state_variable name="totalMilliseconds" update_type="set" update_source="constant">0</update_state_variable>
+                            <update_state_variable name="totalMinutes" update_type="set" update_source="constant">00</update_state_variable>
+                            <update_state_variable name="totalSeconds" update_type="set" update_source="constant">00</update_state_variable>
+                            <update_state_variable name="totalTime" update_type="set" update_source="constant">0:00:00</update_state_variable>
+                            <update_state_variable name="progressTime" update_type="set" update_source="constant">0:00:00</update_state_variable>
+                            <update_state_variable name="currentEpisodeName" update_type="set" update_source="constant"> </update_state_variable>
+                            <update_state_variable name="currentEpisodeNumber" update_type="set" update_source="constant"> </update_state_variable>
+                            <update_state_variable name="currentSeasonNumber" update_type="set" update_source="constant"> </update_state_variable>
+                            <update_state_variable name="currentSeasonName" update_type="set" update_source="constant"> </update_state_variable>
+                            <update_state_variable name="isTVShow" update_type="set" update_source="constant">false</update_state_variable>
                             <update_state_variable name="isPlay" update_type="set" update_source="constant">false</update_state_variable>
+                            <update_state_variable name="thumbnail" update_type="set" update_source="constant"></update_state_variable>
+                            <update_state_variable name="aspectRatio" update_type="set" update_source="constant"></update_state_variable>
+                            <update_state_variable name="audioChannels" update_type="set" update_source="constant"></update_state_variable>
+                            <update_state_variable name="audioCodec" update_type="set" update_source="constant"></update_state_variable>
+                            <update_state_variable name="videoCodec" update_type="set" update_source="constant"></update_state_variable>
+                            <update_state_variable name="videoFrameRate" update_type="set" update_source="constant"></update_state_variable>
+                            <update_state_variable name="videoResolution" update_type="set" update_source="constant"></update_state_variable>
                         </action>
                     </actions>
                 </run_elements>
@@ -1549,19 +1850,19 @@
                 <command_interface interface="ip">
                     <command>
                         <command_string type="character">{"jsonrpc":"2.0","method":"Player.GetProperties","params":{"playerid":1,"properties":["percentage","time","totaltime"]},"id":"1"}</command_string>
-                        <delay ms_delay="50"/>
+                        <delay ms_delay="100"/>
                     </command>
                 </command_interface>
                 <execute_on_schedule period_ms="1000"/>
             </action>
             <action name="GetInformation">
-                <execute_on_state_variable_condition name="trapThumb" test_condition="less_than">5</execute_on_state_variable_condition>
+                <execute_on_state_variable_condition name="trapThumb" test_condition="less_than">1</execute_on_state_variable_condition>
                 <execute_on_state_variable_condition name="getPosistion" test_condition="equal">true</execute_on_state_variable_condition>
                 <update_state_variable name="trapThumb" update_type="increment" update_source="constant">1</update_state_variable>
                 <command_interface interface="ip">
                     <command>
-                        <command_string type="character">{"jsonrpc":"2.0","method":"Player.GetItem","params":{"playerid":1,"properties":["rating","duration","plot","runtime","starttime","endtime","thumbnail"]},"id":"1"}</command_string>
-                        <delay ms_delay="50"/>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Player.GetItem","params":{"playerid":1,"properties":["rating","art"]},"id":"1"}</command_string>
+                        <delay ms_delay="200"/>
                     </command>
                 </command_interface>
                 <execute_on_schedule period_ms="1000"/>
