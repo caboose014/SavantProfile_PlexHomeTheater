@@ -12,8 +12,12 @@ You need to enable TCP control of Plex Home Theater by modifying the GUIsettings
 
 Please note that you will need to be running RacePoint Media version 5.2.2 or above in order to inject the custom screen correctly.
 
+!!*** Some thumbnails may not work if you have scanned your media using an older version of Plex Media Server.
 
-**Please read "How To - Injecting Screen.pdf" for install instructions**
+!!*** This profile has been tested with a NEW library using Plex Home Thearer v1.0.13.222 and Plex Media Server v0.9.9.7
+
+
+!!*** **Please read "How To - Injecting Screen.pdf" for install instructions**
 
 
 Here is a preview of the updated Retina screen that includes thumbnails:
