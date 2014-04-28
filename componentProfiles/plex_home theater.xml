@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="racepoint_component_profile.xsd" unique_identifier="none" manufacturer="Plex" model="Home Theater" device_class="Media_server" minimum_component_engine_version="0" rpm_xml_version="$Revision: 2.3.15$">
+    xsi:noNamespaceSchemaLocation="racepoint_component_profile.xsd" unique_identifier="ip_address" manufacturer="Plex" model="Home Theater" device_class="Media_server" minimum_component_engine_version="0" rpm_xml_version="$Revision: 2.4.1$">
     <notes>
         
         You are required to edit the guisettings.xml file located ~/Library/Application Support/Plex Home Theater/userdata
@@ -1814,6 +1814,20 @@
                         <parameter_list>
                             <parameter parameter_data_type="character" action_argument="SeekValue"/>
                             <parameter parameter_data_type="character">},"id":"1"}</parameter>
+                        </parameter_list>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            <!--     Substituting for keyboard string send    -->
+            <action name="UpdateStatus">
+                <action_argument name="String"/>
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Input.SendText","params":{"text":"</command_string>
+                        <parameter_list>
+                            <parameter parameter_data_type="character" action_argument="String"/>
+                            <parameter parameter_data_type="character">","done":true},"id":"1"}</parameter>
                         </parameter_list>
                         <delay ms_delay="50"/>
                     </command>
