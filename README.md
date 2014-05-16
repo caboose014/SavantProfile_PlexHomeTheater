@@ -19,6 +19,7 @@ Please note that you will need to be running RacePoint Media version 5.2.2 or ab
 
 !!*** **Please read "How To - Injecting Screen.pdf" for install instructions**
 
+** Donations are always welcome! : http://goo.gl/U4g9Ra **
 
 Here is a preview of the updated Retina screen that includes thumbnails:
 ![movies](https://copy.com/fWsLoII7mHoOh436)
