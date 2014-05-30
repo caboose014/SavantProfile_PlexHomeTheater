@@ -1,0 +1,1482 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>RPMScreenButtonsKey</key>
+	<dict>
+		<key>AJA Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>AJA</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>AJA</string>
+			<key>NextScreen</key>
+			<string>ajaMediaQuery</string>
+		</dict>
+		<key>AM Radio Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>AM Radio</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>AM Radio</string>
+			<key>NextScreen</key>
+			<string>amRadio</string>
+		</dict>
+		<key>Apple TV Audio Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>tv</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/services/Apple TV Icon</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>tv Audio</string>
+			<key>NextScreen</key>
+			<string>appleRemoteAudio</string>
+		</dict>
+		<key>Apple TV DAAP Music Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>tv</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/services/Apple TV Icon</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>tv Music</string>
+			<key>NextScreen</key>
+			<string>daapAudio</string>
+		</dict>
+		<key>Apple TV DAAP Video Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>tv</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/services/Apple TV Icon</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>tv Movies</string>
+			<key>NextScreen</key>
+			<string>daapVideo</string>
+		</dict>
+		<key>Apple TV Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>tv</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>tv</string>
+			<key>NextScreen</key>
+			<string>appleRemote</string>
+		</dict>
+		<key>Apple TV Live Query Audio Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>tv</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/services/Apple TV Icon</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>tv Audio</string>
+			<key>NextScreen</key>
+			<string>liveDAAPAudio</string>
+		</dict>
+		<key>Apple TV Live Query Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>tv</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/services/Apple TV Icon</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>tv Media</string>
+			<key>NextScreen</key>
+			<string>liveDAAP</string>
+		</dict>
+		<key>Background Settings Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>Label</key>
+			<string>Background</string>
+			<key>RPMOverrideKey</key>
+			<dict>
+				<key>IgnoreParentOverrides</key>
+				<true/>
+				<key>MessageTarget</key>
+				<string>Center</string>
+				<key>NonService</key>
+				<true/>
+			</dict>
+			<key>ReleaseCommand</key>
+			<string>PresentImagePicker</string>
+		</dict>
+		<key>CC TV Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>CC TV</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>CC TV</string>
+			<key>NextScreen</key>
+			<string>ccTv</string>
+		</dict>
+		<key>CD Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>CD</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>CD</string>
+			<key>NextScreen</key>
+			<string>cd</string>
+		</dict>
+		<key>Cable Audio Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Cable TV</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/services/Cable TV Icon</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Cable Audio</string>
+			<key>NextScreen</key>
+			<string>cableTvAudio</string>
+		</dict>
+		<key>Cable TV Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Cable TV</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Cable TV</string>
+			<key>NextScreen</key>
+			<string>cableTv</string>
+		</dict>
+		<key>Cameras Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Camera</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Camera</string>
+			<key>NextScreen</key>
+			<string>security</string>
+			<key>RPMOverrideKey</key>
+			<dict>
+				<key>ServiceType</key>
+				<string>SVC_ENV_SECURITYCAMERA</string>
+			</dict>
+		</dict>
+		<key>DVD Audio Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>DVD</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/services/DVD Icon</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>DVD Audio</string>
+			<key>NextScreen</key>
+			<string>dvdAudio</string>
+		</dict>
+		<key>DVD Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>DVD</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>DVD</string>
+			<key>NextScreen</key>
+			<string>dvd</string>
+		</dict>
+		<key>DVI Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>DVI</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/services/Generic Video Icon</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>DVI</string>
+			<key>NextScreen</key>
+			<string>dvi</string>
+		</dict>
+		<key>Dialer Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Dialer</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Dialer</string>
+			<key>NextScreen</key>
+			<string>dialer</string>
+		</dict>
+		<key>Displays Button</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>Enabled</key>
+			<true/>
+			<key>Hidden</key>
+			<true/>
+			<key>InternalCommand</key>
+			<false/>
+			<key>Label</key>
+			<string>Displays</string>
+			<key>NextScreen</key>
+			<string>displays</string>
+			<key>Type</key>
+			<string>Push</string>
+		</dict>
+		<key>Energy Dashboard Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Dashboard</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Dashboard</string>
+			<key>RPMOverrideKey</key>
+			<dict>
+				<key>ForceUseNextScreen</key>
+				<true/>
+			</dict>
+			<key>ReleaseNextScreen</key>
+			<string>energyDashboard</string>
+		</dict>
+		<key>Energy Graph Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>History</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>History</string>
+			<key>RPMOverrideKey</key>
+			<dict>
+				<key>ForceUseNextScreen</key>
+				<true/>
+			</dict>
+			<key>ReleaseNextScreen</key>
+			<string>energyHistory</string>
+		</dict>
+		<key>Energy Meter Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Meters</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Meters</string>
+			<key>RPMOverrideKey</key>
+			<dict>
+				<key>ForceUseNextScreen</key>
+				<true/>
+			</dict>
+			<key>ReleaseNextScreen</key>
+			<string>energyMeters</string>
+		</dict>
+		<key>Energy Rates Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Rates</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Rates</string>
+			<key>RPMOverrideKey</key>
+			<dict>
+				<key>ForceUseNextScreen</key>
+				<true/>
+			</dict>
+			<key>ReleaseNextScreen</key>
+			<string>energyRates</string>
+		</dict>
+		<key>Energy Table Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Table</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Table</string>
+			<key>RPMOverrideKey</key>
+			<dict>
+				<key>ForceUseNextScreen</key>
+				<true/>
+			</dict>
+			<key>ReleaseNextScreen</key>
+			<string>energyTable</string>
+		</dict>
+		<key>Enhanced DVD Audio Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>BluRay</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/services/Enhanced DVD Icon</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>BluRay Audio</string>
+			<key>NextScreen</key>
+			<string>enhancedDvdAudio</string>
+		</dict>
+		<key>Enhanced DVD Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>BluRay</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>BluRay</string>
+			<key>NextScreen</key>
+			<string>enhancedDvd</string>
+		</dict>
+		<key>Equalizer Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>EQ</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>EQ</string>
+			<key>NextScreen</key>
+			<string>equalizer</string>
+		</dict>
+		<key>FM Radio Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>FM Radio</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>FM Radio</string>
+			<key>NextScreen</key>
+			<string>fmRadio</string>
+		</dict>
+		<key>Favorites Settings Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>Label</key>
+			<string>Categories</string>
+			<key>ReleaseNextScreen</key>
+			<string>categorySettings</string>
+		</dict>
+		<key>Games Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Game</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Game</string>
+			<key>NextScreen</key>
+			<string>games</string>
+		</dict>
+		<key>Generic Audio Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Audio</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Generic Audio</string>
+			<key>NextScreen</key>
+			<string>genericAudio</string>
+		</dict>
+		<key>Generic Video Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Video</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Generic Video</string>
+			<key>NextScreen</key>
+			<string>genericVideo</string>
+		</dict>
+		<key>HDMI Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>HDMI</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/services/Generic Video Icon</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>HDMI</string>
+			<key>NextScreen</key>
+			<string>hdmi</string>
+		</dict>
+		<key>HVAC History Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>HVAC History</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>HVAC History</string>
+			<key>RPMOverrideKey</key>
+			<dict>
+				<key>ForceUseNextScreen</key>
+				<true/>
+			</dict>
+			<key>ReleaseNextScreen</key>
+			<string>hvacHistory</string>
+		</dict>
+		<key>HVAC Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Climate</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Climate</string>
+			<key>NextScreen</key>
+			<string>hvac</string>
+			<key>RPMOverrideKey</key>
+			<dict>
+				<key>AllowZoneShortcut</key>
+				<true/>
+				<key>ForceUseNextScreen</key>
+				<true/>
+				<key>ServiceType</key>
+				<string>SVC_ENV_HVAC</string>
+				<key>StateBindings</key>
+				<dict>
+					<key>Value</key>
+					<dict>
+						<key>ValueTransformer</key>
+						<array>
+							<string>DegreeSuffix</string>
+						</array>
+					</dict>
+				</dict>
+			</dict>
+			<key>ValueSourceStateName</key>
+			<string>ThermostatCurrentTemperature</string>
+			<key>ValueSourceStateResource</key>
+			<string>ENV_HVACCONTROLLER_SOURCE</string>
+			<key>ValueSourceStateType</key>
+			<string>Resource</string>
+		</dict>
+		<key>HVAC Schedule Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Schedule</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>HVAC Scheduler</string>
+			<key>RPMOverrideKey</key>
+			<dict>
+				<key>ForceUseNextScreen</key>
+				<true/>
+			</dict>
+			<key>ReleaseNextScreen</key>
+			<string>hvacSchedule</string>
+		</dict>
+		<key>HVAC Single Humidity Point Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Climate</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/services/HVAC Icon</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Climate</string>
+			<key>NextScreen</key>
+			<string>hvacWithSingleHumidityPoint</string>
+			<key>RPMOverrideKey</key>
+			<dict>
+				<key>AllowZoneShortcut</key>
+				<true/>
+				<key>ForceUseNextScreen</key>
+				<true/>
+				<key>ServiceType</key>
+				<string>SVC_ENV_HVAC</string>
+				<key>StateBindings</key>
+				<dict>
+					<key>Value</key>
+					<dict>
+						<key>ValueTransformer</key>
+						<array>
+							<string>DegreeSuffix</string>
+						</array>
+					</dict>
+				</dict>
+			</dict>
+			<key>ValueSourceStateName</key>
+			<string>ThermostatCurrentTemperature</string>
+			<key>ValueSourceStateResource</key>
+			<string>ENV_HVACCONTROLLER_SOURCE</string>
+			<key>ValueSourceStateType</key>
+			<string>Resource</string>
+		</dict>
+		<key>Help Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>Label</key>
+			<string>Help</string>
+			<key>RPMOverrideKey</key>
+			<dict>
+				<key>NonService</key>
+				<true/>
+				<key>StateBindings</key>
+				<dict>
+					<key>ToggleState</key>
+					<dict>
+						<key>StateName</key>
+						<string>TIHelpMode</string>
+						<key>StateScope</key>
+						<string>local</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>ReleaseCommand</key>
+			<string>SetState</string>
+			<key>ReleaseCommandArguments</key>
+			<dict>
+				<key>StateName</key>
+				<string>local.TIHelpMode</string>
+				<key>StateValue</key>
+				<string>1</string>
+			</dict>
+			<key>ToggleReleaseCommand</key>
+			<string>SetState</string>
+			<key>ToggleReleaseCommandArguments</key>
+			<dict>
+				<key>StateName</key>
+				<string>local.TIHelpMode</string>
+				<key>StateValue</key>
+				<string>0</string>
+			</dict>
+		</dict>
+		<key>History Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>History</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>History</string>
+		</dict>
+		<key>Intercom Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Intercom</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Intercom</string>
+			<key>NextScreen</key>
+			<string>intercom</string>
+			<key>RPMOverrideKey</key>
+			<dict>
+				<key>AllowZoneShortcut</key>
+				<true/>
+				<key>ForceUseNextScreen</key>
+				<true/>
+				<key>ServiceType</key>
+				<string>SVC_COMM_TELEPHONY_INTERCOM</string>
+			</dict>
+		</dict>
+		<key>Ipod Dock Audio Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>iPod</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/services/Ipod Icon</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>iPod Music</string>
+			<key>NextScreen</key>
+			<string>ipodAudio</string>
+		</dict>
+		<key>Ipod Dock Video Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>iPod</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/services/Ipod Icon</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>iPod Movies</string>
+			<key>NextScreen</key>
+			<string>ipodVideo</string>
+		</dict>
+		<key>Ipod Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>iPod</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>iPod</string>
+			<key>NextScreen</key>
+			<string>ipod</string>
+		</dict>
+		<key>Kaleidescape Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Kaleidescape</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Kaleidescape</string>
+			<key>NextScreen</key>
+			<string>kscapeMusic</string>
+		</dict>
+		<key>Kaleidescape Live Query Audio Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Kaleidescape</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/services/Kaleidescape Icon</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Kaleidescape Audio</string>
+			<key>NextScreen</key>
+			<string>kscapeAudio</string>
+		</dict>
+		<key>Kaleidescape Live Query Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Kaleidescape</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/services/Kaleidescape Icon</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Kaleidescape</string>
+			<key>NextScreen</key>
+			<string>kscape</string>
+		</dict>
+		<key>Lastfm Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Last.fm</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/services/Lastfm Icon</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Last.fm</string>
+			<key>NextScreen</key>
+			<string>savantMediaLastFMAudio</string>
+		</dict>
+		<key>Lighting Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Lighting</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Lighting</string>
+			<key>NextScreen</key>
+			<string>lighting</string>
+			<key>RPMOverrideKey</key>
+			<dict>
+				<key>AllowZoneShortcut</key>
+				<true/>
+				<key>ForceUseNextScreen</key>
+				<true/>
+				<key>ServiceType</key>
+				<string>SVC_ENV_LIGHTING</string>
+			</dict>
+		</dict>
+		<key>Live Media Query Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Squeezebox</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Squeezebox</string>
+			<key>NextScreen</key>
+			<string>liveMediaQuery</string>
+		</dict>
+		<key>Media Player Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>iTunes</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>iTunes</string>
+			<key>NextScreen</key>
+			<string>media</string>
+		</dict>
+		<key>Media Server Audio Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Media</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/services/Media Player Icon</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Media Server Audio</string>
+			<key>NextScreen</key>
+			<string>mediaServerAudio</string>
+		</dict>
+		<key>Media Server Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Media</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Media Server</string>
+			<key>NextScreen</key>
+			<string>mediaServer</string>
+		</dict>
+		<key>Multiband Radio Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Multiband Radio</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Multiband Radio</string>
+			<key>NextScreen</key>
+			<string>multiBandRadio</string>
+		</dict>
+		<key>OSD Control</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>TrueCmnd</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>TrueCmnd</string>
+			<key>RPMOverrideKey</key>
+			<dict>
+				<key>IgnoreParentOverrides</key>
+				<true/>
+				<key>IsFullScreen</key>
+				<true/>
+				<key>MessageTarget</key>
+				<string>Center</string>
+				<key>NoPowerOn</key>
+				<true/>
+				<key>NonService</key>
+				<true/>
+				<key>PopoverLabel</key>
+				<string>TrueCommand</string>
+				<key>PopulationScreen</key>
+				<string>osd</string>
+			</dict>
+			<key>ReleaseCommand</key>
+			<string>PresentOSDControl</string>
+		</dict>
+		<key>Pandora Media Query Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Pandora</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Pandora</string>
+			<key>NextScreen</key>
+			<string>pandoraMediaQuery</string>
+		</dict>
+		<key>Phone Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Phone</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Phone</string>
+			<key>NextScreen</key>
+			<string>phone</string>
+			<key>RPMOverrideKey</key>
+			<dict>
+				<key>AllowZoneShortcut</key>
+				<true/>
+				<key>ForceUseNextScreen</key>
+				<true/>
+				<key>ServiceType</key>
+				<string>SVC_COMM_TELEPHONY_PHONE</string>
+			</dict>
+		</dict>
+		<key>Plex Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Plex</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Plex</string>
+			<key>NextScreen</key>
+			<string>plex</string>
+		</dict>
+		<key>Pool Control Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Pool Control</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Pool Control</string>
+			<key>NextScreen</key>
+			<string>poolControl</string>
+		</dict>
+		<key>Remote Systems Settings Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>Label</key>
+			<string>Systems</string>
+			<key>RPMOverrideKey</key>
+			<dict>
+				<key>NonService</key>
+				<true/>
+			</dict>
+			<key>ReleaseCommand</key>
+			<string>PresentRemoteSystemSettings</string>
+		</dict>
+		<key>Rhapsody Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Rhapsody</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/services/Rhapsody Icon</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Rhapsody</string>
+			<key>NextScreen</key>
+			<string>savantMediaRhapsodyAudio</string>
+		</dict>
+		<key>SACD</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>SACD</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>SACD</string>
+			<key>NextScreen</key>
+			<string>sacd</string>
+		</dict>
+		<key>Satellite Radio Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Sat Radio</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Sat Radio</string>
+			<key>NextScreen</key>
+			<string>satelliteRadio</string>
+		</dict>
+		<key>Satellite TV Audio Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Satellite TV</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/services/Satellite TV Icon</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Sat TV Audio</string>
+			<key>NextScreen</key>
+			<string>satelliteTvAudio</string>
+		</dict>
+		<key>Satellite TV Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Satellite TV</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Satellite TV</string>
+			<key>NextScreen</key>
+			<string>satelliteTv</string>
+		</dict>
+		<key>Savant Media Audio Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Savant Media</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/services/Savant Media Icon</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Savant Media</string>
+			<key>NextScreen</key>
+			<string>savantMediaAudio</string>
+		</dict>
+		<key>Savant Media Audio Pandora Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Pandora</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/services/Pandora Media Query Icon</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Pandora</string>
+			<key>NextScreen</key>
+			<string>savantMediaPandoraAudio</string>
+		</dict>
+		<key>Savant Media Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Savant Media</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/services/Savant Media Icon</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Savant Media</string>
+			<key>NextScreen</key>
+			<string>savantMedia</string>
+		</dict>
+		<key>Savant Streaming Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Video Player</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Video Player</string>
+			<key>NextScreen</key>
+			<string>videoPlayer</string>
+		</dict>
+		<key>Security DVR Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Security DVR</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Security DVR</string>
+			<key>NextScreen</key>
+			<string>securityDvr</string>
+		</dict>
+		<key>Security Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Security</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Security System</string>
+			<key>NextScreen</key>
+			<string>securitySystem</string>
+		</dict>
+		<key>Shade Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Shades</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Shades</string>
+			<key>NextScreen</key>
+			<string>shades</string>
+			<key>RPMOverrideKey</key>
+			<dict>
+				<key>AllowZoneShortcut</key>
+				<true/>
+				<key>ForceUseNextScreen</key>
+				<true/>
+			</dict>
+		</dict>
+		<key>SiriusXM Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>SiriusXM</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/services/SiriusXM Icon</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>SiriusXM</string>
+			<key>NextScreen</key>
+			<string>savantMediaSiriusAudio</string>
+		</dict>
+		<key>Sounds Settings Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Sound</string>
+			<key>RPMOverrideKey</key>
+			<dict/>
+		</dict>
+		<key>Spotify Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Spotify</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/services/Spotify Icon</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Spotify</string>
+			<key>NextScreen</key>
+			<string>savantMediaSpotifyAudio</string>
+		</dict>
+		<key>Stereo Settings Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Stereo</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Stereo</string>
+			<key>NextScreen</key>
+			<string>stereoSound</string>
+		</dict>
+		<key>Surround Sound Settings Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Surround</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Surround Sound</string>
+			<key>NextScreen</key>
+			<string>surroundSound</string>
+		</dict>
+		<key>TV Favorites Editor Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>Label</key>
+			<string>Favorites</string>
+			<key>ReleaseNextScreen</key>
+			<string>favoritesEditor</string>
+		</dict>
+		<key>TV Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>TV</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>TV</string>
+		</dict>
+		<key>True Image Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>Label</key>
+			<string>TrueImage</string>
+			<key>NextScreen</key>
+			<string>TrueImage</string>
+			<key>RPMOverrideKey</key>
+			<dict>
+				<key>MultiplyExternalImage</key>
+				<true/>
+				<key>TrueImageExternalImage</key>
+				<true/>
+			</dict>
+		</dict>
+		<key>TuneIn Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>TuneIn</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/services/TuneIn Icon</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>TuneIn</string>
+			<key>NextScreen</key>
+			<string>savantMediaTuneInAudio</string>
+		</dict>
+		<key>User Defined Security Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Security</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/services/Security Icon</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>User Security</string>
+			<key>NextScreen</key>
+			<string>userSecuritySystem</string>
+		</dict>
+		<key>VCR Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>VCR</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>VCR</string>
+			<key>NextScreen</key>
+			<string>vcr</string>
+		</dict>
+		<key>VGA Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>VGA</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/services/Generic Video Icon</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>VGA</string>
+			<key>NextScreen</key>
+			<string>vga</string>
+		</dict>
+		<key>Video Conference</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Conference</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Video Conference</string>
+			<key>NextScreen</key>
+			<string>videoConference</string>
+		</dict>
+		<key>Video Conference 2 Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Conference</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Conference</string>
+			<key>NextScreen</key>
+			<string>videoConference2</string>
+		</dict>
+		<key>Video Settings Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Video</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Video</string>
+			<key>NextScreen</key>
+			<string>video</string>
+		</dict>
+		<key>Video Tiling Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Video Tiling</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Video Tiling</string>
+			<key>NextScreen</key>
+			<string>tiling</string>
+		</dict>
+		<key>Weather Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Weather</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Weather</string>
+			<key>NextScreen</key>
+			<string>weatherControl</string>
+		</dict>
+		<key>Web Controlled Browser Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Web Browser</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Web Browser</string>
+		</dict>
+		<key>Web Controlled Server Audio Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Web Server</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/services/Web Controlled Server Icon</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Web Audio</string>
+			<key>NextScreen</key>
+			<string>webControlledAudio</string>
+		</dict>
+		<key>Web Controlled Server Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Web Server</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Web Server</string>
+		</dict>
+		<key>Web Controlled Server Video Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Web Server</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/services/Web Controlled Server Icon</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Web Video</string>
+			<key>NextScreen</key>
+			<string>webControlledVideo</string>
+		</dict>
+		<key>XBMC Live Media Query Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>XBMC</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>XBMC</string>
+			<key>NextScreen</key>
+			<string>xbmc</string>
+		</dict>
+		<key>Xfinity Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>Cable TV</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>Xfinity</string>
+			<key>NextScreen</key>
+			<string>xfinity</string>
+		</dict>
+		<key>iPod Live Media Query Audio Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>iPod</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/services/Ipod Icon</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>iPod Live Media Query Audio</string>
+			<key>NextScreen</key>
+			<string>ipodQueryAudio</string>
+		</dict>
+		<key>iPod Live Media Query Icon</key>
+		<dict>
+			<key>Assignable</key>
+			<integer>1</integer>
+			<key>CategoryLabel</key>
+			<string>iPod</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/services/Ipod Icon</string>
+			<key>Hidden</key>
+			<true/>
+			<key>Label</key>
+			<string>iPod Live Media Query</string>
+			<key>NextScreen</key>
+			<string>ipodQuery</string>
+		</dict>
+	</dict>
+</dict>
+</plist>
