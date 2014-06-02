@@ -120,7 +120,7 @@
 			<key>RPMGraphicIdentifierKey</key>
 			<string>NowPlaying</string>
 			<key>ReleaseCommand</key>
-			<string>Help</string>
+			<string>NumberPlusTen</string>
 			<key>Type</key>
 			<string>Push</string>
 		</dict>
