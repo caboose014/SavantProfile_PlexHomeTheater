@@ -129,6 +129,19 @@
 			<key>ElementSourceIdentifier</key>
 			<string>Buttons/volumeAndLabels/Mute</string>
 		</dict>
+		<key>NowPlaying</key>
+		<dict>
+			<key>Enabled</key>
+			<true/>
+			<key>InternalCommand</key>
+			<false/>
+			<key>RPMGraphicIdentifierKey</key>
+			<string>NowPlaying</string>
+			<key>ReleaseCommand</key>
+			<string>Help</string>
+			<key>Type</key>
+			<string>Push</string>
+		</dict>
 		<key>Page Down</key>
 		<dict>
 			<key>Enabled</key>
