@@ -111,11 +111,6 @@
 			<key>Type</key>
 			<string>Push</string>
 		</dict>
-		<key>Mute</key>
-		<dict>
-			<key>ElementSourceIdentifier</key>
-			<string>Buttons/volumeAndLabels/Mute</string>
-		</dict>
 		<key>NowPlaying</key>
 		<dict>
 			<key>Enabled</key>
@@ -397,21 +392,6 @@
 			<key>ValueSourceStateType</key>
 			<string>Resource</string>
 		</dict>
-		<key>Relative Mute</key>
-		<dict>
-			<key>ElementSourceIdentifier</key>
-			<string>Buttons/volumeAndLabels/Relative Mute</string>
-		</dict>
-		<key>Relative Volume Down</key>
-		<dict>
-			<key>ElementSourceIdentifier</key>
-			<string>Buttons/volumeAndLabels/Relative Volume Down</string>
-		</dict>
-		<key>Relative Volume Up</key>
-		<dict>
-			<key>ElementSourceIdentifier</key>
-			<string>Buttons/volumeAndLabels/Relative Volume Up</string>
-		</dict>
 		<key>StatusToggle</key>
 		<dict>
 			<key>Enabled</key>
@@ -538,21 +518,6 @@
 			</dict>
 			<key>SubViewType</key>
 			<string>CameraView</string>
-		</dict>
-		<key>Volume Down</key>
-		<dict>
-			<key>ElementSourceIdentifier</key>
-			<string>Buttons/volumeAndLabels/Volume Down</string>
-		</dict>
-		<key>Volume Slider</key>
-		<dict>
-			<key>ElementSourceIdentifier</key>
-			<string>Buttons/volumeAndLabels/Volume Slider</string>
-		</dict>
-		<key>Volume Up</key>
-		<dict>
-			<key>ElementSourceIdentifier</key>
-			<string>Buttons/volumeAndLabels/Volume Up</string>
 		</dict>
 	</dict>
 	<key>RPMScreenTextBoxesKey</key>
