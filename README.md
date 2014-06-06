@@ -19,7 +19,7 @@ Please note that you will need to be running RacePoint Media version 5.2.2 or ab
 
 !!*** **Please read "How To - Injecting Screen.pdf" for install instructions**
 
-Donations are always welcome! : [![Thank you for your donation!](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](http://goo.gl/U4g9Ra)
+To help support ongoing maintanace, donations are always appreciated!  : [![Thank you for your donation!](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](http://goo.gl/U4g9Ra)
 
 
 
