@@ -128,8 +128,6 @@
 		<dict>
 			<key>Enabled</key>
 			<true/>
-			<key>HoldCommand</key>
-			<string>Red</string>
 			<key>InternalCommand</key>
 			<false/>
 			<key>RPMGraphicIdentifierKey</key>
@@ -143,8 +141,6 @@
 		<dict>
 			<key>Enabled</key>
 			<true/>
-			<key>HoldCommand</key>
-			<string>Red</string>
 			<key>InternalCommand</key>
 			<false/>
 			<key>RPMGraphicIdentifierKey</key>

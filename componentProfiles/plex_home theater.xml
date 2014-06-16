@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="racepoint_component_profile.xsd" unique_identifier="ip_address" manufacturer="Plex" model="Home Theater" device_class="Media_server" minimum_component_engine_version="0" rpm_xml_version="$Revision: 2.4.3$">
+    xsi:noNamespaceSchemaLocation="racepoint_component_profile.xsd" unique_identifier="ip_address" manufacturer="Plex" model="Home Theater" device_class="Media_server" minimum_component_engine_version="0" rpm_xml_version="$Revision: 2.5.3$">
     <notes>
         
         You are required to edit the guisettings.xml file located ~/Library/Application Support/Plex Home Theater/userdata
@@ -13,6 +13,7 @@
         !!*** This profile has been tested with a NEW library using Plex Home Thearer v1.0.13.222 and Plex Media Server v0.9.9.7
         
         ====================== Change Log ==================
+        Version: 2.5.0 Change:  - Added command to return 'now playing' to fullscreen
         Version: 2.4.3 Change:  - Added more Status messages matches
         Version: 2.4.2 Change:  - Change frequency of URL Fetches
         Version: 2.3.15 Change:  - Updated methods of fetching URLS
@@ -1323,7 +1324,7 @@
                     </actions>
                 </run_elements>
             </status_message>
-            <status_message name="GetArtandPlot_TV2">
+            <status_message name="GetArtandPlot_TV3">
                 <constant type="character">{"id":"1","jsonrpc":"2.0","result":{"item":{"art":{"bigGrandparentThumb":"image://plexserver</constant>
                 <data type="character" terminator_type="character" terminator=","/> <!--bigGrandparentThumb--> 
                 <data type="character" terminator_type="character" terminator=","/> <!--bigThumb--> 
@@ -1405,19 +1406,19 @@
                 </data>
                 <data type="character" terminator_type="character" terminator=","/> <!-- End videoResolution-->
                 
-                <data type="character" terminator_type="character" terminator=","/> <!--parentThumb-->
-                <data type="character" terminator_type="character" terminator=","/> <!--poster-->
-                <data type="character" terminator_type="character" terminator=","/> <!--smallGrandparentThumb-->
-                <data type="character" terminator_type="character" terminator=","/> <!--smallThumb-->
-                <data type="character" terminator_type="character" terminator=","/> <!--thumb-->
-                <data type="character" terminator_type="character" terminator=","/> <!--tvshow.thumb-->
-                <data type="character" terminator_type="character" terminator=","/> <!--id-->
-                <data type="character" terminator_type="character" terminator=","/> <!--label-->
+                <data type="character" terminator_type="end_of_data" terminator=","/> <!--parentThumb-->
+                <!--<data type="character" terminator_type="character" terminator=","/> <!-\-poster-\->
+                <data type="character" terminator_type="character" terminator=","/> <!-\-smallGrandparentThumb-\->
+                <data type="character" terminator_type="character" terminator=","/> <!-\-smallThumb-\->
+                <data type="character" terminator_type="character" terminator=","/> <!-\-thumb-\->
+                <data type="character" terminator_type="character" terminator=","/> <!-\-tvshow.thumb-\->
+                <data type="character" terminator_type="character" terminator=","/> <!-\-id-\->
+                <data type="character" terminator_type="character" terminator=","/> <!-\-label-\->
                 <constant type="character">"rating":</constant>
                 <data type="character" terminator_type="character" terminator=",">
                     <update state="rating" type="float"/>
                 </data>
-                <data type="character" terminator_type="end_of_data"/>
+                <data type="character" terminator_type="end_of_data"/>-->
                 <run_elements>
                     <actions>
                         <action name="updateThumbnail">
@@ -1764,7 +1765,7 @@
                     </actions>
                 </run_elements>
             </status_message>
-            <status_message name="GetArtandPlot_Movie2">
+            <status_message name="GetArtandPlot_Movie3">
                 <constant type="character">{"id":"1","jsonrpc":"2.0","result":{"item":{"art":{"bigThumb":"image://plexserver</constant>
                 <data type="character" terminator_type="character" terminator="."/> <!--bigThumb--> 
                 <constant type="character">0.0.1%253a32400%252flibrary%252fmetadata%252f</constant>
@@ -1843,17 +1844,17 @@
                 <data type="character" terminator_type="character" terminator="%">
                     <update state="vidstats" type="string"></update>
                 </data>
-                <data type="character" terminator_type="character" terminator=","/> <!-- End videoResolution-->
-                <data type="character" terminator_type="character" terminator=","/> <!--poster-->
-                <data type="character" terminator_type="character" terminator=","/> <!--smallThumb-->
-                <data type="character" terminator_type="character" terminator=","/> <!--thumb-->
-                <data type="character" terminator_type="character" terminator=","/> <!--id-->
-                <data type="character" terminator_type="character" terminator=","/> <!--label-->
+                <data type="character" terminator_type="end_of_data" terminator=","/> <!-- End videoResolution-->
+                <!--<data type="character" terminator_type="character" terminator=","/> <!-\-poster-\->
+                <data type="character" terminator_type="character" terminator=","/> <!-\-smallThumb-\->
+                <data type="character" terminator_type="character" terminator=","/> <!-\-thumb-\->
+                <data type="character" terminator_type="character" terminator=","/> <!-\-id-\->
+                <data type="character" terminator_type="character" terminator=","/> <!-\-label-\->
                 <constant type="character">"rating":</constant>
                 <data type="character" terminator_type="character" terminator=",">
                     <update state="rating" type="float"/>
                 </data>
-                <data type="character" terminator_type="end_of_data"/>
+                <data type="character" terminator_type="end_of_data"/>-->
                 <run_elements>
                     <actions>
                         <action name="updateThumbnails">
@@ -2138,6 +2139,7 @@
                 </command_interface>
             </action>
             <action name="ScanUp">
+                <update_state_variable name="isPlay" update_type="set" update_source="constant">false</update_state_variable>
                 <command_interface interface="ip">
                     <command>
                         <command_string type="character">{"jsonrpc":"2.0","method":"Player.SetSpeed","params":{"playerid":1,"speed":"increment"},"id":"1"}</command_string>
@@ -2146,6 +2148,7 @@
                 </command_interface>
             </action>
             <action name="ScanDown">
+                <update_state_variable name="isPlay" update_type="set" update_source="constant">false</update_state_variable>
                 <command_interface interface="ip">
                     <command>
                         <command_string type="character">{"jsonrpc":"2.0","method":"Player.SetSpeed","params":{"playerid":1,"speed":"decrement"},"id":"1"}</command_string>
@@ -2201,7 +2204,7 @@
                     </command>
                 </command_interface>
             </action>
-            <action name="Setup">
+            <action name="Setup"><!--     Substituting for OSD       -->
                 <command_interface interface="ip">
                     <command>
                         <command_string type="character">{"jsonrpc":"2.0","method":"Input.ShowOSD","id":"1"}</command_string>
@@ -2365,10 +2368,18 @@
                     </command>
                 </command_interface>
             </action>
-            <action name="NumberEnter">
+            <action name="NumberEnter"><!--     Substituting for Now Playing       -->
                 <command_interface interface="ip">
                     <command>
-                        <command_string type="character">{"jsonrpc":"2.0","method":"Input.ExecuteAction","params":{"action":"enter"},"id":"1"}</command_string>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Input.ExecuteAction","params":{"action":"fullscreen"},"id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            <action name="Enter"><!--     Substituting for Now Playing       -->
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Input.ExecuteAction","params":{"action":"fullscreen"},"id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
                 </command_interface>
@@ -2428,6 +2439,16 @@
                     </command>
                 </command_interface>
             </action>
+            <!--     Substituting for Now Playing       -->
+            <action name="NumberPlusTen">
+                <command_interface interface="ip">
+                    <command>
+                        <command_string type="character">{"jsonrpc":"2.0","method":"Input.ExecuteAction","params":{"action":"fullscreen"},"id":"1"}</command_string>
+                        <delay ms_delay="50"/>
+                    </command>
+                </command_interface>
+            </action>
+            
         </resource_component_actions>
         <custom_component_actions>
             <action name="SubtitleOff">
