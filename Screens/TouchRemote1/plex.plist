@@ -70,16 +70,16 @@
 			<key>SubViewType</key>
 			<string>CameraView</string>
 		</dict>
-		<key>MediaServer Exit</key>
+		<key>Fast Forward</key>
 		<dict>
 			<key>Enabled</key>
 			<true/>
 			<key>InternalCommand</key>
 			<false/>
 			<key>RPMGraphicIdentifierKey</key>
-			<string>MediaServer Exit</string>
+			<string>Fast Forward</string>
 			<key>ReleaseCommand</key>
-			<string>Exit</string>
+			<string>ScanUp</string>
 			<key>Type</key>
 			<string>Push</string>
 		</dict>
@@ -110,11 +110,6 @@
 			<string>Subtitle</string>
 			<key>Type</key>
 			<string>Push</string>
-		</dict>
-		<key>Mute</key>
-		<dict>
-			<key>ElementSourceIdentifier</key>
-			<string>Buttons/volumeAndLabels/Mute</string>
 		</dict>
 		<key>NowPlaying</key>
 		<dict>
@@ -338,6 +333,19 @@
 			<key>Type</key>
 			<string>Toggle</string>
 		</dict>
+		<key>Plex Stop</key>
+		<dict>
+			<key>Enabled</key>
+			<true/>
+			<key>InternalCommand</key>
+			<false/>
+			<key>RPMGraphicIdentifierKey</key>
+			<string>Plex Stop</string>
+			<key>ReleaseCommand</key>
+			<string>Stop</string>
+			<key>Type</key>
+			<string>Push</string>
+		</dict>
 		<key>Plex Zoom</key>
 		<dict>
 			<key>Enabled</key>
@@ -393,20 +401,281 @@
 			<key>ValueSourceStateType</key>
 			<string>Resource</string>
 		</dict>
-		<key>Relative Mute</key>
+		<key>Remote Channel Down</key>
 		<dict>
+			<key>Command</key>
+			<string>ChannelAnalogDown</string>
+			<key>CommandSendInterval</key>
+			<real>0.34999999999999998</real>
 			<key>ElementSourceIdentifier</key>
-			<string>Buttons/volumeAndLabels/Relative Mute</string>
+			<string>Screens/iPodRemote/Remote Channel Down</string>
+			<key>HoldCommand</key>
+			<string>ChannelAnalogDown</string>
+			<key>HoldTime</key>
+			<real>0.59999999999999998</real>
 		</dict>
-		<key>Relative Volume Down</key>
+		<key>Remote Channel Up</key>
 		<dict>
+			<key>Command</key>
+			<string>ChannelAnalogUp</string>
+			<key>CommandSendInterval</key>
+			<real>0.34999999999999998</real>
 			<key>ElementSourceIdentifier</key>
-			<string>Buttons/volumeAndLabels/Relative Volume Down</string>
+			<string>Screens/iPodRemote/Remote Channel Up</string>
+			<key>HoldCommand</key>
+			<string>ChannelAnalogUp</string>
+			<key>HoldTime</key>
+			<real>0.59999999999999998</real>
 		</dict>
-		<key>Relative Volume Up</key>
+		<key>Remote DVR</key>
 		<dict>
 			<key>ElementSourceIdentifier</key>
-			<string>Buttons/volumeAndLabels/Relative Volume Up</string>
+			<string>Screens/iPodRemote/Remote DVR</string>
+			<key>ReleaseCommand</key>
+			<string>MyDVR</string>
+		</dict>
+		<key>Remote Decimal</key>
+		<dict>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/iPodRemote/Remote Decimal</string>
+			<key>HoldCommand</key>
+			<string>StarHold</string>
+			<key>ReleaseCommand</key>
+			<string>StarRelease</string>
+		</dict>
+		<key>Remote Enter</key>
+		<dict>
+			<key>Command</key>
+			<string>Enter</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/iPodRemote/Remote Enter</string>
+		</dict>
+		<key>Remote Exit</key>
+		<dict>
+			<key>Command</key>
+			<string>Exit</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/iPodRemote/Remote Exit</string>
+			<key>HoldCommand</key>
+			<string>ToggleWidgets</string>
+		</dict>
+		<key>Remote Guide</key>
+		<dict>
+			<key>Command</key>
+			<string>Setup</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/iPodRemote/Remote Guide</string>
+		</dict>
+		<key>Remote Info</key>
+		<dict>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/iPodRemote/Remote Info</string>
+			<key>ReleaseCommand</key>
+			<string>Info</string>
+		</dict>
+		<key>Remote Last</key>
+		<dict>
+			<key>Command</key>
+			<string>LastChannel</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/iPodRemote/Remote Last</string>
+		</dict>
+		<key>Remote Menu</key>
+		<dict>
+			<key>Command</key>
+			<string>Menu</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/iPodRemote/Remote Menu</string>
+		</dict>
+		<key>Remote Mute</key>
+		<dict>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/iPodRemote/Remote Mute</string>
+		</dict>
+		<key>Remote Navigate Down</key>
+		<dict>
+			<key>Command</key>
+			<string>OSDCursorDown</string>
+			<key>CommandSendInterval</key>
+			<real>0.34999999999999998</real>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/iPodRemote/Remote Navigate Down</string>
+			<key>HoldCommand</key>
+			<string>OSDCursorDown</string>
+			<key>HoldTime</key>
+			<real>0.59999999999999998</real>
+		</dict>
+		<key>Remote Navigate Left</key>
+		<dict>
+			<key>Command</key>
+			<string>OSDCursorLeft</string>
+			<key>CommandSendInterval</key>
+			<real>0.34999999999999998</real>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/iPodRemote/Remote Navigate Left</string>
+			<key>HoldCommand</key>
+			<string>OSDCursorLeft</string>
+			<key>HoldTime</key>
+			<real>0.59999999999999998</real>
+		</dict>
+		<key>Remote Navigate Right</key>
+		<dict>
+			<key>Command</key>
+			<string>OSDCursorRight</string>
+			<key>CommandSendInterval</key>
+			<real>0.34999999999999998</real>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/iPodRemote/Remote Navigate Right</string>
+			<key>HoldCommand</key>
+			<string>OSDCursorRight</string>
+			<key>HoldTime</key>
+			<real>0.59999999999999998</real>
+		</dict>
+		<key>Remote Navigate Up</key>
+		<dict>
+			<key>Command</key>
+			<string>OSDCursorUp</string>
+			<key>CommandSendInterval</key>
+			<real>0.34999999999999998</real>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/iPodRemote/Remote Navigate Up</string>
+			<key>HoldCommand</key>
+			<string>OSDCursorUp</string>
+			<key>HoldTime</key>
+			<real>0.59999999999999998</real>
+		</dict>
+		<key>Remote Number_0</key>
+		<dict>
+			<key>Command</key>
+			<string>NumberZero</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/iPodRemote/Remote Number_0</string>
+		</dict>
+		<key>Remote Number_1</key>
+		<dict>
+			<key>Command</key>
+			<string>NumberOne</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/iPodRemote/Remote Number_1</string>
+		</dict>
+		<key>Remote Number_2</key>
+		<dict>
+			<key>Command</key>
+			<string>NumberTwo</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/iPodRemote/Remote Number_2</string>
+		</dict>
+		<key>Remote Number_3</key>
+		<dict>
+			<key>Command</key>
+			<string>NumberThree</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/iPodRemote/Remote Number_3</string>
+		</dict>
+		<key>Remote Number_4</key>
+		<dict>
+			<key>Command</key>
+			<string>NumberFour</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/iPodRemote/Remote Number_4</string>
+		</dict>
+		<key>Remote Number_5</key>
+		<dict>
+			<key>Command</key>
+			<string>NumberFive</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/iPodRemote/Remote Number_5</string>
+		</dict>
+		<key>Remote Number_6</key>
+		<dict>
+			<key>Command</key>
+			<string>NumberSix</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/iPodRemote/Remote Number_6</string>
+		</dict>
+		<key>Remote Number_7</key>
+		<dict>
+			<key>Command</key>
+			<string>NumberSeven</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/iPodRemote/Remote Number_7</string>
+		</dict>
+		<key>Remote Number_8</key>
+		<dict>
+			<key>Command</key>
+			<string>NumberEight</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/iPodRemote/Remote Number_8</string>
+		</dict>
+		<key>Remote Number_9</key>
+		<dict>
+			<key>Command</key>
+			<string>NumberNine</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/iPodRemote/Remote Number_9</string>
+		</dict>
+		<key>Remote Page Down</key>
+		<dict>
+			<key>Command</key>
+			<string>PageDown</string>
+			<key>CommandSendInterval</key>
+			<real>1.5</real>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/iPodRemote/Remote Page Down</string>
+			<key>HoldCommand</key>
+			<string>PageDown</string>
+			<key>HoldTime</key>
+			<real>0.59999999999999998</real>
+		</dict>
+		<key>Remote Page Up</key>
+		<dict>
+			<key>Command</key>
+			<string>PageUp</string>
+			<key>CommandSendInterval</key>
+			<real>1.5</real>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/iPodRemote/Remote Page Up</string>
+			<key>HoldCommand</key>
+			<string>PageUp</string>
+			<key>HoldTime</key>
+			<real>0.59999999999999998</real>
+		</dict>
+		<key>Remote Rosie Menu</key>
+		<dict>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/iPodRemote/Remote Rosie Menu</string>
+			<key>HoldCommand</key>
+			<string>PowerOff</string>
+		</dict>
+		<key>Remote Select</key>
+		<dict>
+			<key>Command</key>
+			<string>OSDSelect</string>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/iPodRemote/Remote Select</string>
+		</dict>
+		<key>Remote Volume Down</key>
+		<dict>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/iPodRemote/Remote Volume Down</string>
+		</dict>
+		<key>Remote Volume Up</key>
+		<dict>
+			<key>ElementSourceIdentifier</key>
+			<string>Screens/iPodRemote/Remote Volume Up</string>
+		</dict>
+		<key>Rewind</key>
+		<dict>
+			<key>Enabled</key>
+			<true/>
+			<key>InternalCommand</key>
+			<false/>
+			<key>RPMGraphicIdentifierKey</key>
+			<string>Rewind</string>
+			<key>ReleaseCommand</key>
+			<string>ScanDown</string>
+			<key>Type</key>
+			<string>Push</string>
 		</dict>
 		<key>StatusToggle</key>
 		<dict>
@@ -535,20 +804,13 @@
 			<key>SubViewType</key>
 			<string>CameraView</string>
 		</dict>
-		<key>Volume Down</key>
+	</dict>
+	<key>RPMScreenGraphicsKey</key>
+	<dict>
+		<key>Remote Background</key>
 		<dict>
 			<key>ElementSourceIdentifier</key>
-			<string>Buttons/volumeAndLabels/Volume Down</string>
-		</dict>
-		<key>Volume Slider</key>
-		<dict>
-			<key>ElementSourceIdentifier</key>
-			<string>Buttons/volumeAndLabels/Volume Slider</string>
-		</dict>
-		<key>Volume Up</key>
-		<dict>
-			<key>ElementSourceIdentifier</key>
-			<string>Buttons/volumeAndLabels/Volume Up</string>
+			<string>Screens/iPodRemote/Remote Background</string>
 		</dict>
 	</dict>
 	<key>RPMScreenTextBoxesKey</key>
