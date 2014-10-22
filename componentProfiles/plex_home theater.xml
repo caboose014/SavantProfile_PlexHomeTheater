@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="racepoint_component_profile.xsd" unique_identifier="ip_address" manufacturer="Plex" model="Home Theater" device_class="Media_server" minimum_component_engine_version="0" rpm_xml_version="$Revision: 2.5.4$">
+    xsi:noNamespaceSchemaLocation="racepoint_component_profile.xsd" unique_identifier="ip_address" manufacturer="Plex" model="Home Theater" device_class="Media_server" minimum_component_engine_version="0" rpm_xml_version="$Revision: 2.5.6$">
     <notes>
         
         You are required to edit the guisettings.xml file located ~/Library/Application Support/Plex Home Theater/userdata
@@ -13,6 +13,8 @@
         !!*** This profile has been tested with a NEW library using Plex Home Thearer v1.0.13.222 and Plex Media Server v0.9.9.7
         
         ====================== Change Log ==================
+        Version: 2.5.6 Change:	- Removed "DIGITAL_AUDIO" from interfaces which was causing AVC to crash 7.0
+        Version: 2.5.5 Change:	- Seperated analog and digital audio outputs and removed "combination mini jack"
         Version: 2.5.0 Change:  - Added command to return 'now playing' to fullscreen
         Version: 2.4.3 Change:  - Added more Status messages matches
         Version: 2.4.2 Change:  - Change frequency of URL Fetches
@@ -35,16 +37,22 @@
                 <audio_media type="hdmi_audio"/>
                 <video_media type="hdmi"/>
             </combined_media>
-            <resource resource_type="AV_DIGITALVIDEO_SOURCE"/>
-            <resource resource_type="AV_DIGITALAUDIO_SOURCE"/>
             <resource resource_type="AV_EXTERNALMEDIASERVER_SOURCE"/>
         </output>
         <output name_on_component="Audio Out">
             <audio_media type="analog_spdif_combination_minijack"/>
-            <resource resource_type="AV_DIGITALAUDIO_SOURCE"/>
+        	<audio_media type="rca_stereo"/>
             <resource resource_type="AV_EXTERNALMEDIASERVER_SOURCE"/>
             <resource resource_type="AV_VOLUMECONTROL_FUNCTION"/>
         </output>
+	    <output name_on_component="Optical Out">
+		    <audio_media type="optical_digital"/>
+		    <resource resource_type="AV_EXTERNALMEDIASERVER_SOURCE"/>
+	    </output>
+	    <output name_on_component="Coaxial Out">
+		    <audio_media type="coaxial_digital"/>
+		    <resource resource_type="AV_EXTERNALMEDIASERVER_SOURCE"/>
+	    </output>
         <data name_on_component="Ethernet">
             <combined_media>
                 <data_media type="ethernet"/>
@@ -100,6 +108,8 @@
         <implementation>
             <output name_on_component="HDMI"/>
             <output name_on_component="Audio Out" />
+	        <output name_on_component="Optical Out" />
+	        <output name_on_component="Coaxial Out" />
         </implementation>
         <status_messages>
             <status_message name="Volume">
