@@ -12,7 +12,7 @@
         !!*** This profile has been tested with a NEW library using Plex Home Thearer v1.0.13.222 and Plex Media Server v0.9.9.7
         
         ====================== Change Log ==================
-        Version: 2.5.7 Change:	- Removed "DIGITAL_AUDIO" from interfaces which was causing AVC to crash 7.0
+        Version: 2.5.7 Change:	- Updates to improve control during playback
         Version: 2.5.6 Change:	- Removed "DIGITAL_AUDIO" from interfaces which was causing AVC to crash 7.0
         Version: 2.5.5 Change:	- Seperated analog and digital audio outputs and removed "combination mini jack"
         Version: 2.5.0 Change:  - Added command to return 'now playing' to fullscreen
