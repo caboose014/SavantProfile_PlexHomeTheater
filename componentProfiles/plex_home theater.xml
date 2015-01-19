@@ -2,7 +2,7 @@
 <component xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="racepoint_component_profile.xsd" unique_identifier="ip_address"
     manufacturer="Plex" model="Home Theater" device_class="Media_server"
-    minimum_component_engine_version="0" rpm_xml_version="2.6.0" alias="Plex">
+    minimum_component_engine_version="0" rpm_xml_version="2.6.1" alias="Plex">
     <notes>
         
         You are required to edit the guisettings.xml file located ~/Library/Application Support/Plex Home Theater/userdata
@@ -15,6 +15,7 @@
         !!*** This profile has been tested with a NEW library using Plex Home Thearer v1.0.13.222 and Plex Media Server v0.9.9.7
         
         ====================== Change Log ==================
+        Version: 2.6.1 Change:  - Trying to improve preformance on smart host
         Version: 2.6.0 Change:  - Large update related to feedback. Improves preformance and control
         Version: 2.5.7 Change:	- Updates to improve control during playback
         Version: 2.5.6 Change:	- Removed "DIGITAL_AUDIO" from interfaces which was causing AVC to crash 7.0
@@ -29,9 +30,21 @@
         <resource_map resource_type="AV_EXTERNALMEDIASERVER_SOURCE" ui_map="plex"/>
     </resource_ui_mappings>
     <control_interfaces preferred="ip">
-        <ip port="9090" response_time_length_ms="200" name_on_component="ETHERNET" protocol="tcp">
+        <ip port="9090" response_time_length_ms="200" name_on_component="ETHERNET" protocol="telnet">
             <response_codes>
-                <rspcode message_name="ok" type="character" status="success">{"id":"1","jsonrpc":"2.0","result":"OK"}</rspcode>
+                <rspmessage status="success" name="ok">
+                    <constant type="character">{"id":"1","jsonrpc":"2.0",</constant>
+                    <data type="character" terminator_type="end_of_data"></data>
+                </rspmessage>
+                <rspmessage status="failure" name="error">
+                    <constant type="character">{"error":{"code":</constant>
+                    <data type="character" terminator_type="character" terminator=","></data>
+                    <constant type="character">"message":"</constant>
+                    <data type="character" terminator_type="character" terminator="&quot;">
+                        <update state="lastErrorMsg" type="string"></update>
+                    </data>
+                    <constant type="character">}</constant>
+                </rspmessage>
             </response_codes>
         </ip>
     </control_interfaces>
@@ -164,7 +177,7 @@
                             <update_state_variable name="isPlay" update_type="set" update_source="constant">true</update_state_variable>
                             <update_state_variable name="trapThumb" update_type="set" update_source="constant">true</update_state_variable>
                             <command_interface interface="ip">
-                                <command>
+                                <command response_required="no">
                                     <command_string type="character">{"jsonrpc":"2.0","method":"Player.GetItem","params":{"playerid":1,"properties":["title", "episode", "season", "showtitle"]},"id":"1"}</command_string>
                                     <delay ms_delay="100"/>
                                 </command>
@@ -173,7 +186,7 @@
                         <action name="GetPoster">
                             <execute_on_state_variable_condition name="isPlay" test_condition="equal">true</execute_on_state_variable_condition>
                             <command_interface interface="ip">
-                                <command>
+                                <command response_required="no">
                                     <command_string type="character">{"jsonrpc":"2.0","method":"Player.GetItem","params":{"playerid":1,"properties":["fanart"]},"id":"1"}</command_string>
                                     <delay ms_delay="100"/>
                                 </command>
@@ -182,7 +195,7 @@
                         <action name="GetMediaInfo">
                             <execute_on_state_variable_condition name="isPlay" test_condition="equal">true</execute_on_state_variable_condition>
                             <command_interface interface="ip">
-                                <command>
+                                <command response_required="no">
                                     <command_string type="character">{"jsonrpc":"2.0","method":"XBMC.GetInfoLabels","params":{"labels":["VideoPlayer.VideoAspect", "VideoPlayer.VideoResolution", "VideoPlayer.VideoCodec", "VideoPlayer.AudioCodec", "VideoPlayer.AudioChannels"]},"id":"1"}</command_string>
                                     <delay ms_delay="100"/>
                                 </command>
@@ -208,7 +221,7 @@
                             <update_state_variable name="isPlay" update_type="set" update_source="constant">true</update_state_variable>
                             <update_state_variable name="trapThumb" update_type="set" update_source="constant">true</update_state_variable>
                             <command_interface interface="ip">
-                                <command>
+                                <command response_required="no">
                                     <command_string type="character">{"jsonrpc":"2.0","method":"Player.GetItem","params":{"playerid":1,"properties":["title", "year"]},"id":"1"}</command_string>
                                     <delay ms_delay="100"/>
                                 </command>
@@ -217,7 +230,7 @@
                         <action name="GetPoster">
                             <execute_on_state_variable_condition name="isPlay" test_condition="equal">true</execute_on_state_variable_condition>
                             <command_interface interface="ip">
-                                <command>
+                                <command response_required="no">
                                     <command_string type="character">{"jsonrpc":"2.0","method":"Player.GetItem","params":{"playerid":1,"properties":["fanart"]},"id":"1"}</command_string>
                                     <delay ms_delay="100"/>
                                 </command>
@@ -226,7 +239,7 @@
                         <action name="GetMediaInfo">
                             <execute_on_state_variable_condition name="isPlay" test_condition="equal">true</execute_on_state_variable_condition>
                             <command_interface interface="ip">
-                                <command>
+                                <command response_required="no">
                                     <command_string type="character">{"jsonrpc":"2.0","method":"XBMC.GetInfoLabels","params":{"labels":["VideoPlayer.VideoAspect", "VideoPlayer.VideoResolution", "VideoPlayer.VideoCodec", "VideoPlayer.AudioCodec", "VideoPlayer.AudioChannels"]},"id":"1"}</command_string>
                                     <delay ms_delay="100"/>
                                 </command>
@@ -1229,7 +1242,7 @@
                             <update_state_variable name="isPlay" update_type="set" update_source="constant">true</update_state_variable>
                             <update_state_variable name="trapThumb" update_type="set" update_source="constant">true</update_state_variable>
                             <command_interface interface="ip">
-                                <command>
+                                <command response_required="no">
                                     <command_string type="character">{"jsonrpc":"2.0","method":"Player.GetItem","params":{"playerid":1,"properties":["title", "episode", "season", "showtitle"]},"id":"1"}</command_string>
                                     <delay ms_delay="100"/>
                                 </command>
@@ -1243,7 +1256,7 @@
                             <update_state_variable name="isPlay" update_type="set" update_source="constant">true</update_state_variable>
                             <update_state_variable name="trapThumb" update_type="set" update_source="constant">true</update_state_variable>
                             <command_interface interface="ip">
-                                <command>
+                                <command response_required="no">
                                     <command_string type="character">{"jsonrpc":"2.0","method":"Player.GetItem","params":{"playerid":1,"properties":["title", "year"]},"id":"1"}</command_string>
                                     <delay ms_delay="100"/>
                                 </command>
@@ -1252,7 +1265,7 @@
                         <action name="GetPoster">
                             <execute_on_state_variable_condition name="isPlay" test_condition="equal">true</execute_on_state_variable_condition>
                             <command_interface interface="ip">
-                                <command>
+                                <command response_required="no">
                                     <command_string type="character">{"jsonrpc":"2.0","method":"Player.GetItem","params":{"playerid":1,"properties":["fanart"]},"id":"1"}</command_string>
                                     <delay ms_delay="100"/>
                                 </command>
@@ -1261,7 +1274,7 @@
                         <action name="GetMediaInfo">
                             <execute_on_state_variable_condition name="isPlay" test_condition="equal">true</execute_on_state_variable_condition>
                             <command_interface interface="ip">
-                                <command>
+                                <command response_required="no">
                                     <command_string type="character">{"jsonrpc":"2.0","method":"XBMC.GetInfoLabels","params":{"labels":["VideoPlayer.VideoAspect", "VideoPlayer.VideoResolution", "VideoPlayer.VideoCodec", "VideoPlayer.AudioCodec", "VideoPlayer.AudioChannels"]},"id":"1"}</command_string>
                                     <delay ms_delay="100"/>
                                 </command>
@@ -1277,7 +1290,7 @@
                 <execute_on_state_variable_condition name="Power_current_power_setting" test_condition="not_equal">ON</execute_on_state_variable_condition>
                 <update_state_variable name="Power_current_power_setting" update_type="set" update_source="constant">ON</update_state_variable>
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Input.ShowCodec","id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
@@ -1288,7 +1301,7 @@
                 <update_state_variable name="Power_current_power_setting" update_type="set" update_source="constant">OFF</update_state_variable>
                 <update_state_variable name="getPosistion" update_type="set" update_source="constant">false</update_state_variable>
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Player.Stop","params":{"playerid":1},"id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
@@ -1352,7 +1365,7 @@
         <resource_component_actions resource_type="AV_EXTERNALMEDIASERVER_SOURCE">
             <action name="Repeat">
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Player.SetRepeat","params":{"playerid":1,"repeat":"cycle"},"id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
@@ -1361,7 +1374,7 @@
             <action name="Select">
                 <!--<update_state_variable name="trapThumb" update_type="set" update_source="constant">0</update_state_variable>-->
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Input.Select","id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
@@ -1369,7 +1382,7 @@
             </action>
             <action name="OSDCursorUp">
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Input.Up","id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
@@ -1377,7 +1390,7 @@
             </action>
             <action name="OSDCursorDown">
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Input.Down","id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
@@ -1385,7 +1398,7 @@
             </action>
             <action name="OSDCursorLeft">
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Input.Left","id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
@@ -1393,7 +1406,7 @@
             </action>
             <action name="OSDCursorRight">
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Input.Right","id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
@@ -1401,7 +1414,7 @@
             </action>
             <action name="Exit">
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Input.Back","id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
@@ -1409,10 +1422,10 @@
             </action>
             <action name="Play">
                 <update_state_variable name="isPlay" update_type="set" update_source="constant">true</update_state_variable>
-                <!--<update_state_variable name="getPosistion" update_type="set" update_source="constant">true</update_state_variable>-->
+                <update_state_variable name="getPosistion" update_type="set" update_source="constant">true</update_state_variable>
                 <!--<update_state_variable name="trapThumb" update_type="set" update_source="constant">0</update_state_variable>-->
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Input.ExecuteAction","params":{"action":"play"},"id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
@@ -1423,7 +1436,7 @@
                 <update_state_variable name="getPosistion" update_type="set" update_source="constant">false</update_state_variable>
                 <!--<update_state_variable name="trapThumb" update_type="set" update_source="constant">0</update_state_variable>-->
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Input.ExecuteAction","params":{"action":"pause"},"id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
@@ -1433,7 +1446,7 @@
                 <update_state_variable name="isPlay" update_type="set" update_source="constant">false</update_state_variable>
                 <update_state_variable name="getPosistion" update_type="set" update_source="constant">false</update_state_variable>
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Player.Stop","params":{"playerid":1},"id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
@@ -1442,7 +1455,7 @@
             <action name="ScanUp">
                 <update_state_variable name="isPlay" update_type="set" update_source="constant">false</update_state_variable>
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Player.SetSpeed","params":{"playerid":1,"speed":"increment"},"id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
@@ -1451,7 +1464,7 @@
             <action name="ScanDown">
                 <update_state_variable name="isPlay" update_type="set" update_source="constant">false</update_state_variable>
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Player.SetSpeed","params":{"playerid":1,"speed":"decrement"},"id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
@@ -1459,7 +1472,7 @@
             </action>
             <action name="StepUp">
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Player.Seek","params":{"playerid":1,"value":"bigforward"},"id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
@@ -1467,7 +1480,7 @@
             </action>
             <action name="StepDown">
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Player.Seek","params":{"playerid":1,"value":"bigbackward"},"id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
@@ -1475,7 +1488,7 @@
             </action>
             <action name="SkipUp">
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Player.GoTo","params":{"playerid":1,"to":"next"},"id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
@@ -1483,7 +1496,7 @@
             </action>
             <action name="SkipDown">
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Player.Goto","params":{"playerid":1,"to":"previous"},"id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
@@ -1491,7 +1504,7 @@
             </action>
             <action name="Info">
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Input.Info","id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
@@ -1500,7 +1513,7 @@
             <action name="Setup">
                 <!--     Substituting for OSD       -->
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Input.ShowOSD","id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
@@ -1508,11 +1521,11 @@
             </action>
             <action name="Menu">
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Input.ContextMenu","id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Input.ShowOSD","id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
@@ -1520,7 +1533,7 @@
             </action>
             <action name="Subtitle">
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Player.SetSubtitle","params":{"playerid":1,"subtitle":"next","enable":true},"id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
@@ -1528,7 +1541,7 @@
             </action>
             <action name="Zoom">
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Input.ExecuteAction","params":{"action":"zoomin"},"id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
@@ -1536,7 +1549,7 @@
             </action>
             <action name="PageUp">
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Input.ExecuteAction","params":{"action":"pageup"},"id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
@@ -1544,7 +1557,7 @@
             </action>
             <action name="PageDown">
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Input.ExecuteAction","params":{"action":"pagedown"},"id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
@@ -1552,7 +1565,7 @@
             </action>
             <action name="Home">
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Input.Home","id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
@@ -1560,7 +1573,7 @@
             </action>
             <action name="Audio">
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Player.SetAudioStream","params":{"playerid":1,"stream":"next"},"id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
@@ -1568,7 +1581,7 @@
             </action>
             <action name="Repeat">
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Player.SetRepeat","params":{"playerid":1,"repeat":"cycle"},"id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
@@ -1576,7 +1589,7 @@
             </action>
             <action name="Random">
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Player.SetShuffle","params":{"playerid":1,"shuffle":"toggle"},"id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
@@ -1584,7 +1597,7 @@
             </action>
             <action name="NumberZero">
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Input.ExecuteAction","params":{"action":"number0"},"id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
@@ -1592,7 +1605,7 @@
             </action>
             <action name="NumberOne">
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Input.ExecuteAction","params":{"action":"number1"},"id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
@@ -1600,7 +1613,7 @@
             </action>
             <action name="NumberTwo">
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Input.ExecuteAction","params":{"action":"number2"},"id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
@@ -1608,7 +1621,7 @@
             </action>
             <action name="NumberThree">
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Input.ExecuteAction","params":{"action":"number3"},"id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
@@ -1616,7 +1629,7 @@
             </action>
             <action name="NumberFour">
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Input.ExecuteAction","params":{"action":"number4"},"id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
@@ -1624,7 +1637,7 @@
             </action>
             <action name="NumberFive">
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Input.ExecuteAction","params":{"action":"number5"},"id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
@@ -1632,7 +1645,7 @@
             </action>
             <action name="NumberSix">
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Input.ExecuteAction","params":{"action":"number6"},"id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
@@ -1640,7 +1653,7 @@
             </action>
             <action name="NumberSeven">
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Input.ExecuteAction","params":{"action":"number7"},"id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
@@ -1648,7 +1661,7 @@
             </action>
             <action name="NumberEight">
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Input.ExecuteAction","params":{"action":"number8"},"id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
@@ -1656,7 +1669,7 @@
             </action>
             <action name="NumberNine">
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Input.ExecuteAction","params":{"action":"number9"},"id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
@@ -1665,7 +1678,7 @@
             <action name="NumberEnter">
                 <!--     Substituting for Now Playing       -->
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Input.ExecuteAction","params":{"action":"fullscreen"},"id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
@@ -1674,7 +1687,7 @@
             <action name="Enter">
                 <!--     Substituting for Now Playing       -->
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Input.ExecuteAction","params":{"action":"fullscreen"},"id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
@@ -1682,7 +1695,7 @@
             </action>
             <action name="Red">
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Player.SetSubtitle","params":{"playerid":1,"subtitle":"off"},"id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
@@ -1690,7 +1703,7 @@
             </action>
             <action name="Blue">
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Player.Zoom","params":{"playerid":1,"zoom":1},"id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
@@ -1698,7 +1711,7 @@
             </action>
             <action name="Green">
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Input.ExecuteAction","params":{"action":"togglewatched"},"id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
@@ -1707,7 +1720,7 @@
             <action name="Yellow">
                 <action_argument name="SeekValue"/>
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Player.Seek","params":{"playerid":1,"value":</command_string>
                         <parameter_list>
                             <parameter parameter_data_type="character" action_argument="SeekValue"/>
@@ -1720,7 +1733,7 @@
             <action name="UpdateStatus">
                 <action_argument name="String"/>
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Input.SendText","params":{"text":"</command_string>
                         <parameter_list>
                             <parameter parameter_data_type="character" action_argument="String"/>
@@ -1732,7 +1745,7 @@
             </action>
             <action name="NumberPlusTen">
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Input.ExecuteAction","params":{"action":"fullscreen"},"id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
@@ -1742,7 +1755,7 @@
         <custom_component_actions>
             <action name="SubtitleOff">
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Player.SetSubtitle","params":{"playerid":1,"subtitle":"off"},"id":"1"}</command_string>
                         <delay ms_delay="50"/>
                     </command>
@@ -1752,7 +1765,7 @@
                 <action_argument name="Title"/>
                 <action_argument name="Message"/>
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"GUI.ShowNotification","params":{"title":"</command_string>
                         <parameter_list>
                             <parameter parameter_data_type="character" action_argument="Title"/>
@@ -1767,7 +1780,7 @@
             <action name="GetPosistion">
                 <execute_on_state_variable_condition name="getPosistion" test_condition="equal">true</execute_on_state_variable_condition>
                 <command_interface interface="ip">
-                    <command>
+                    <command response_required="no">
                         <command_string type="character">{"jsonrpc":"2.0","method":"Player.GetProperties","params":{"playerid":1,"properties":["percentage","time","totaltime"]},"id":"1"}</command_string>
                         <delay ms_delay="25"/>
                     </command>
