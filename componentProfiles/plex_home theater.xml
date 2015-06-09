@@ -2,19 +2,20 @@
 <component xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="racepoint_component_profile.xsd" unique_identifier="ip_address"
     manufacturer="Plex" model="Home Theater" device_class="Media_server"
-    minimum_component_engine_version="0" rpm_xml_version="2.6.1" alias="Plex">
+    minimum_component_engine_version="0" rpm_xml_version="2.6.9" alias="Plex">
     <notes>
         
         You are required to edit the guisettings.xml file located ~/Library/Application Support/Plex Home Theater/userdata
         Locate "esallinterfaces" and change this setting to "true". Besure that Plex Home Theater is not running when you do this.
         
-        !!*** For thumbnails to work, you need to enter the Plex Media Servers IP address in the 'IP Address' field, and the IP address of Plex Home Theater Client on the wire.
-        
-        !!*** Some thumbnails may not work if you have scanned your media using an older version of Plex Media Server.
-        
-        !!*** This profile has been tested with a NEW library using Plex Home Thearer v1.0.13.222 and Plex Media Server v0.9.9.7
+        !!*** For thumbnails to work, you need to enter the Plex Media Servers IP address in the 'IP Address' field, and the IP address of Plex Home Theater Client on the wire. 
+              
+        If your thumbnails are not wokring:
+          Inspect your Plex component, from the 'Show' dropdown box select 'State Variables'. Select 'authtoken' and fill in the 'initial value' field at the bottom of the inspecor window. 
+          The value of this state can be obtained from here: http://http://j14.co/plex/ - you will need to sign using your plex account details.
         
         ====================== Change Log ==================
+        Version: 2.6.9 Change:  - Implement Auth Token for image URLs
         Version: 2.6.1 Change:  - Trying to improve preformance on smart host
         Version: 2.6.0 Change:  - Large update related to feedback. Improves preformance and control
         Version: 2.5.7 Change:	- Updates to improve control during playback
@@ -99,6 +100,7 @@
         <state_variable name="isRepeatOne" state_center_binding="isRepeatOne" state_center_type="boolean" owning_logical_component="Plex">false</state_variable>
         <state_variable name="isRepeatOff" state_center_binding="isRepeatOff" state_center_type="boolean" owning_logical_component="Plex">true</state_variable>
         <state_variable name="plot" state_center_binding="plot" state_center_type="string" owning_logical_component="Plex"/>
+        <state_variable name="authtoken" state_center_binding="authtoken" state_center_type="string" owning_logical_component="Plex" user_editable="yes">tokenvalue</state_variable>
         <state_variable name="rating" state_center_binding="rating" state_center_type="string" owning_logical_component="Plex"/>
         <state_variable name="trapThumb" state_center_binding="trapThumb" state_center_type="boolean" owning_logical_component="Plex">false</state_variable>
         <state_variable name="aspectRatio" state_center_binding="aspectRatio" state_center_type="string" owning_logical_component="Plex"/>
@@ -1078,7 +1080,9 @@
                             <update_state_variable name="thumbnail" update_type="append" update_source="state_variable">thumbnailpt1</update_state_variable>
                             <update_state_variable name="thumbnail" update_type="append" update_source="constant">/thumb/</update_state_variable>
                             <update_state_variable name="thumbnail" update_type="append" update_source="state_variable">thumbnailpt2</update_state_variable>
-                            <update_state_variable name="getPosistion" update_type="set" update_source="constant">true</update_state_variable>
+                            <update_state_variable name="thumbnail" update_type="append" update_source="constant">?X-Plex-Token=</update_state_variable>
+                            <update_state_variable name="thumbnail" update_type="append" update_source="state_variable">authtoken</update_state_variable>
+                            <update_state_variable name="getPosistion" update_type="set" update_source="constant">true</update_state_variable>                            
                         </action>
                     </actions>
                 </run_elements>
@@ -1108,22 +1112,32 @@
                             <update_state_variable name="aspectRatio" update_type="append" update_source="state_variable">UID</update_state_variable>
                             <update_state_variable name="aspectRatio" update_type="append" update_source="constant">:32400/system/bundle/media/flags/aspectRatio/</update_state_variable>
                             <update_state_variable name="aspectRatio" update_type="append" update_source="state_variable">aspectRatio1</update_state_variable>
+                            <update_state_variable name="aspectRatio" update_type="append" update_source="constant">?X-Plex-Token=</update_state_variable>
+                            <update_state_variable name="aspectRatio" update_type="append" update_source="state_variable">authtoken</update_state_variable>
                             <update_state_variable name="audioChannels" update_type="set" update_source="constant">http://</update_state_variable>
                             <update_state_variable name="audioChannels" update_type="append" update_source="state_variable">UID</update_state_variable>
                             <update_state_variable name="audioChannels" update_type="append" update_source="constant">:32400/system/bundle/media/flags/audioChannels/</update_state_variable>
                             <update_state_variable name="audioChannels" update_type="append" update_source="state_variable">audioChannels1</update_state_variable>
+                            <update_state_variable name="audioChannels" update_type="append" update_source="constant">?X-Plex-Token=</update_state_variable>
+                            <update_state_variable name="audioChannels" update_type="append" update_source="state_variable">authtoken</update_state_variable>
                             <update_state_variable name="audioCodec" update_type="set" update_source="constant">http://</update_state_variable>
                             <update_state_variable name="audioCodec" update_type="append" update_source="state_variable">UID</update_state_variable>
                             <update_state_variable name="audioCodec" update_type="append" update_source="constant">:32400/system/bundle/media/flags/audioCodec/</update_state_variable>
                             <update_state_variable name="audioCodec" update_type="append" update_source="state_variable">audioCodec1</update_state_variable>
+                            <update_state_variable name="audioCodec" update_type="append" update_source="constant">?X-Plex-Token=</update_state_variable>
+                            <update_state_variable name="audioCodec" update_type="append" update_source="state_variable">authtoken</update_state_variable>
                             <update_state_variable name="videoCodec" update_type="set" update_source="constant">http://</update_state_variable>
                             <update_state_variable name="videoCodec" update_type="append" update_source="state_variable">UID</update_state_variable>
                             <update_state_variable name="videoCodec" update_type="append" update_source="constant">:32400/system/bundle/media/flags/videoCodec/</update_state_variable>
                             <update_state_variable name="videoCodec" update_type="append" update_source="state_variable">videoCodec1</update_state_variable>
+                            <update_state_variable name="videoCodec" update_type="append" update_source="constant">?X-Plex-Token=</update_state_variable>
+                            <update_state_variable name="videoCodec" update_type="append" update_source="state_variable">authtoken</update_state_variable>
                             <update_state_variable name="videoResolution" update_type="set" update_source="constant">http://</update_state_variable>
                             <update_state_variable name="videoResolution" update_type="append" update_source="state_variable">UID</update_state_variable>
                             <update_state_variable name="videoResolution" update_type="append" update_source="constant">:32400/system/bundle/media/flags/videoResolution/</update_state_variable>
                             <update_state_variable name="videoResolution" update_type="append" update_source="state_variable">videoResolution1</update_state_variable>
+                            <update_state_variable name="videoResolution" update_type="append" update_source="constant">?X-Plex-Token=</update_state_variable>
+                            <update_state_variable name="videoResolution" update_type="append" update_source="state_variable">authtoken</update_state_variable>
                         </action>
                     </actions>
                 </run_elements>
