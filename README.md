@@ -12,6 +12,10 @@ You need to enable TCP control of Plex Home Theater by modifying the GUIsettings
 
 Please note that you will need to be running RacePoint Media version 5.2.2 or above in order to inject the custom screen correctly.
 
+If your thumbnails are not wokring:
+Inspect your Plex component, from the 'Show' dropdown box select 'State Variables'. Select 'authtoken' and fill in the 'initial value' field at the bottom of the inspecor window. 
+The value of this state can be obtained from here: http://http://j14.co/plex/ - you will need to sign using your plex account details.
+
 !!*** Some thumbnails may not work if you have scanned your media using an older version of Plex Media Server.
 
 !!*** This profile has been tested with a NEW library using Plex Home Thearer v1.0.13.222 and Plex Media Server v0.9.9.7
